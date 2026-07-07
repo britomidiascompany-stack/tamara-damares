@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lançamento Pago — Aula Completa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0A0F;
+  --bg2: #121218;
+  --roxo: #A855F7;
+  --roxo-escuro: #7C3AED;
+  --roxo-suave: rgba(168, 85, 247, 0.12);
+  --branco: #FFFFFF;
+  --cinza: #B8B8C4;
+  --borda: rgba(168, 85, 247, 0.25);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { height: 100%; background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--branco); overflow: hidden; }
+
+.slide {
+  display: none;
+  position: absolute; inset: 0;
+  padding: 4vh 6vw;
+  flex-direction: column;
+  justify-content: center;
+  overflow-y: auto;
+}
+.slide.active { display: flex; animation: fadein .35s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+.tag {
+  display: inline-block;
+  background: var(--roxo-suave);
+  border: 1px solid var(--borda);
+  color: var(--roxo);
+  font-size: clamp(11px, 1.3vw, 14px);
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin-bottom: 2.2vh;
+  width: fit-content;
+}
+h1 {
+  font-size: clamp(28px, 5vw, 58px);
+  font-weight: 800;
+  line-height: 1.12;
+  margin-bottom: 2.5vh;
+}
+h1 .roxo, h2 .roxo, .roxo { color: var(--roxo); }
+h2 {
+  font-size: clamp(22px, 3.4vw, 40px);
+  font-weight: 700;
+  line-height: 1.15;
+  margin-bottom: 2.5vh;
+}
+p.sub { font-size: clamp(15px, 1.8vw, 21px); color: var(--cinza); font-weight: 300; max-width: 900px; }
+p.destaque { font-size: clamp(16px, 2vw, 24px); color: var(--branco); font-weight: 500; max-width: 950px; line-height: 1.5; }
+
+ul.lista { list-style: none; margin-top: 1vh; max-width: 1000px; }
+ul.lista li {
+  font-size: clamp(14px, 1.7vw, 20px);
+  font-weight: 300;
+  color: var(--cinza);
+  padding: 1.1vh 0 1.1vh 34px;
+  position: relative;
+  line-height: 1.45;
+}
+ul.lista li::before {
+  content: '';
+  position: absolute; left: 8px; top: calc(1.1vh + .58em);
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--roxo);
+}
+ul.lista li strong, .cards strong { color: var(--branco); font-weight: 600; }
+
+.cards { display: grid; gap: 16px; margin-top: 1.5vh; }
+.cards.c2 { grid-template-columns: repeat(2, 1fr); }
+.cards.c3 { grid-template-columns: repeat(3, 1fr); }
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--borda);
+  border-radius: 16px;
+  padding: 2.4vh 1.6vw;
+}
+.card .num {
+  font-size: clamp(18px, 2.2vw, 28px);
+  font-weight: 800;
+  color: var(--roxo);
+  margin-bottom: .8vh;
+}
+.card h3 { font-size: clamp(14px, 1.6vw, 19px); font-weight: 600; margin-bottom: .8vh; }
+.card p { font-size: clamp(12px, 1.35vw, 16px); font-weight: 300; color: var(--cinza); line-height: 1.45; }
+
+.fluxo-steps { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 2vh; max-width: 1100px; }
+.step {
+  background: var(--bg2);
+  border: 1px solid var(--borda);
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: clamp(12px, 1.4vw, 16px);
+  font-weight: 500;
+  display: flex; align-items: center; gap: 10px;
+}
+.step b { color: var(--roxo); font-weight: 800; }
+
+.capa { align-items: flex-start; text-align: left; }
+.capa h1 { font-size: clamp(40px, 7.5vw, 96px); }
+.capa .linha { width: 120px; height: 5px; background: linear-gradient(90deg, var(--roxo), var(--roxo-escuro)); border-radius: 99px; margin: 3vh 0; }
+
+.secao { align-items: flex-start; }
+.secao .numero-secao {
+  font-size: clamp(60px, 12vw, 160px);
+  font-weight: 800;
+  color: transparent;
+  -webkit-text-stroke: 2px var(--roxo);
+  line-height: 1;
+  margin-bottom: 1vh;
+  opacity: .85;
+}
+
+table.tb { border-collapse: collapse; margin-top: 2vh; max-width: 1000px; width: 100%; }
+table.tb th, table.tb td {
+  border: 1px solid var(--borda);
+  padding: 1.4vh 1.4vw;
+  font-size: clamp(13px, 1.5vw, 18px);
+  text-align: left;
+}
+table.tb th { background: var(--roxo-suave); color: var(--roxo); font-weight: 600; }
+table.tb td { color: var(--cinza); font-weight: 300; }
+table.tb td b { color: var(--branco); font-weight: 600; }
+
+#progresso { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, var(--roxo), var(--roxo-escuro)); z-index: 10; transition: width .3s ease; }
+#contador {
+  position: fixed; bottom: 18px; right: 24px;
+  font-size: 13px; color: var(--cinza); font-weight: 500;
+  background: var(--bg2); border: 1px solid var(--borda);
+  padding: 6px 14px; border-radius: 999px; z-index: 10;
+}
+#marca {
+  position: fixed; bottom: 18px; left: 24px;
+  font-size: 13px; color: var(--cinza); font-weight: 500; z-index: 10;
+}
+#marca b { color: var(--roxo); }
+.nav-btn {
+  position: fixed; top: 50%; transform: translateY(-50%);
+  background: var(--bg2); border: 1px solid var(--borda);
+  color: var(--roxo); font-size: 22px; font-family: inherit;
+  width: 46px; height: 46px; border-radius: 50%;
+  cursor: pointer; z-index: 10; transition: all .2s;
+}
+.nav-btn:hover { background: var(--roxo); color: var(--branco); }
+#ant { left: 14px; } #prox { right: 14px; }
+
+@media (max-width: 760px) {
+  .cards.c2, .cards.c3 { grid-template-columns: 1fr; }
+  .slide { padding: 3vh 7vw 9vh; justify-content: flex-start; padding-top: 8vh; }
+  .nav-btn { display: none; }
+}
+</style>
+</head>
+<body>
+
+<div id="progresso"></div>
+<div id="contador"></div>
+<div id="marca"><b>Lançamento Pago</b> · Rafael Brito</div>
+<button class="nav-btn" id="ant" aria-label="Slide anterior">‹</button>
+<button class="nav-btn" id="prox" aria-label="Próximo slide">›</button>
+
+<!-- 1 CAPA -->
+<section class="slide capa">
+  <span class="tag">Mentoria Tamara Damares</span>
+  <h1>LANÇAMENTO<br><span class="roxo">PAGO</span></h1>
+  <div class="linha"></div>
+  <p class="sub">A estratégia que monetiza já na captação para vender produtos high ticket — inclusive eventos presenciais.</p>
+</section>
+
+<!-- 2 O QUE VAMOS VER -->
+<section class="slide">
+  <span class="tag">Visão geral</span>
+  <h2>A estratégia em <span class="roxo">3 níveis</span></h2>
+  <div class="cards c3">
+    <div class="card"><div class="num">Nível 1</div><h3>Básico</h3><p>O mais fácil de executar. Fundamentos, fluxo completo e as 9 fases do lançamento pago.</p></div>
+    <div class="card"><div class="num">Nível 2</div><h3>Intermediário</h3><p>Complica um pouco mais. Otimizações e camadas extras sobre a base.</p></div>
+    <div class="card"><div class="num">Nível 3</div><h3>Avançado</h3><p>O nível mais avançado da estratégia, para quem já domina os anteriores.</p></div>
+  </div>
+</section>
+
+<!-- 3 SEÇÃO FUNDAMENTOS -->
+<section class="slide secao">
+  <div class="numero-secao">01</div>
+  <h1>Fundamentos do<br><span class="roxo">lançamento pago</span></h1>
+</section>
+
+<!-- 4 O QUE É -->
+<section class="slide">
+  <span class="tag">Fundamentos</span>
+  <h2>O que é o <span class="roxo">lançamento pago</span>?</h2>
+  <p class="destaque">É uma estratégia em que você <span class="roxo">já monetiza na captação</span> para depois vender um produto mais caro.</p>
+  <ul class="lista">
+    <li>Você vende um <strong>produto de entrada</strong> (workshop, imersão ou aula paga)…</li>
+    <li>…que <strong>financia a captação</strong> e <strong>qualifica o público</strong>…</li>
+    <li>…para no evento vender o seu <strong>produto principal (high ticket)</strong>.</li>
+  </ul>
+</section>
+
+<!-- 5 QUALIFICACAO -->
+<section class="slide">
+  <span class="tag">Fundamentos</span>
+  <h2>O ingresso é um <span class="roxo">filtro</span></h2>
+  <ul class="lista">
+    <li>O valor cobrado qualifica em <strong>presença</strong> e em <strong>qualidade de público</strong>.</li>
+    <li>Atrai pessoas com <strong>nível de consciência maior</strong>.</li>
+    <li>Quem paga para assistir chega mais pronto para comprar um <strong>produto mais caro</strong>.</li>
+  </ul>
+</section>
+
+<!-- 6 ORCAMENTO -->
+<section class="slide">
+  <span class="tag">Fundamentos</span>
+  <h2>O orçamento é <span class="roxo">infinito</span> — dentro da meta</h2>
+  <p class="destaque">Se a sua meta for ROAS 1 — cada R$1 investido volta R$1 — você pode investir infinitamente.</p>
+  <ul class="lista">
+    <li>O limite não é um valor fixo: é a <strong>meta</strong> que você definiu.</li>
+    <li>Enquanto o retorno estiver dentro da meta, <strong>continue investindo</strong>.</li>
+  </ul>
+</section>
+
+<!-- 7 ROAS X EXPOSICAO -->
+<section class="slide">
+  <span class="tag">Fundamentos</span>
+  <h2>ROAS x <span class="roxo">Exposição</span></h2>
+  <ul class="lista">
+    <li>A maioria dos lançamentos pagos dá <strong>ROAS negativo na captação</strong> — e isso é esperado.</li>
+    <li>Por isso, defina um <strong>ROAS máximo aceitável</strong> ou uma <strong>exposição máxima</strong>.</li>
+    <li><strong>Exposição</strong> = o que você investe na captação − o que volta na venda dos ingressos.</li>
+    <li>Ex.: investiu R$15 mil, voltou R$10 mil em ingressos → <strong>exposição de R$5 mil</strong>.</li>
+  </ul>
+</section>
+
+<!-- 8 POR QUE FAZER -->
+<section class="slide">
+  <span class="tag">Fundamentos</span>
+  <h2>Por que fazer <span class="roxo">lançamento pago</span>?</h2>
+  <div class="cards c2">
+    <div class="card"><div class="num">40–60%</div><p>dos compradores <strong>comparecem</strong> à aula — presença muito maior que no gratuito.</p></div>
+    <div class="card"><div class="num">5–10%</div><p>é o que o lançamento <strong>gratuito</strong> converte do público para high ticket, na comparação.</p></div>
+    <div class="card"><div class="num">R$</div><p>Você <strong>recupera parte do investimento</strong> já na captação.</p></div>
+    <div class="card"><div class="num">12x</div><p>Dá para lançar <strong>praticamente todo mês</strong>: vende muito para público frio e angaria clientes novos.</p></div>
+  </div>
+</section>
+
+<!-- 9 FLUXO -->
+<section class="slide">
+  <span class="tag">Fundamentos</span>
+  <h2>Como funciona <span class="roxo">na prática</span></h2>
+  <div class="fluxo-steps">
+    <div class="step"><b>1</b> Criativo no tráfego</div>
+    <div class="step"><b>2</b> Página de vendas</div>
+    <div class="step"><b>3</b> Checkout + order bump</div>
+    <div class="step"><b>4</b> Página de obrigado → grupo ou upsell</div>
+    <div class="step"><b>5</b> Acesso na área de membros</div>
+    <div class="step"><b>6</b> Grupo do WhatsApp</div>
+    <div class="step"><b>7</b> Aula / workshop</div>
+    <div class="step"><b>8</b> Oferta do produto principal</div>
+    <div class="step"><b>9</b> Fluxo de vendas do produto</div>
+  </div>
+  <p class="sub" style="margin-top:2.5vh">No upsell da página de obrigado pode entrar, por exemplo, o seu <strong style="color:#fff">evento presencial</strong>.</p>
+</section>
+
+<!-- 10 FERRAMENTAS -->
+<section class="slide">
+  <span class="tag">Fundamentos</span>
+  <h2>As <span class="roxo">ferramentas</span> que indicamos</h2>
+  <div class="cards c3">
+    <div class="card"><h3>Checkout: Zouti</h3><p>Parceiro nosso. Dá suporte na criação de tudo que você precisa — sem exigir faturamento mínimo, diferente de outras plataformas.</p></div>
+    <div class="card"><h3>Membros: Astron Members</h3><p>Parceria com a Zouti. Criam um grupo de WhatsApp de suporte para ajudar a montar seu produto.</p></div>
+    <div class="card"><h3>Membros: MemberKit</h3><p>Alternativa — é a que usamos, porque já tínhamos tudo estruturado lá.</p></div>
+  </div>
+</section>
+
+<!-- 11 SECAO FASES -->
+<section class="slide secao">
+  <div class="numero-secao">02</div>
+  <h1>As <span class="roxo">9 fases</span> do<br>lançamento pago</h1>
+</section>
+
+<!-- 12 VISAO GERAL FASES -->
+<section class="slide">
+  <span class="tag">Visão geral</span>
+  <h2>As <span class="roxo">9 fases</span></h2>
+  <div class="fluxo-steps">
+    <div class="step"><b>1</b> Planejamento</div>
+    <div class="step"><b>2</b> Recursos</div>
+    <div class="step"><b>3</b> Captação paga</div>
+    <div class="step"><b>4</b> Aquecimento <span style="color:var(--cinza)">(opcional)</span></div>
+    <div class="step"><b>5</b> Lembrete <span style="color:var(--cinza)">(opcional)</span></div>
+    <div class="step"><b>6</b> Retarget <span style="color:var(--cinza)">(opcional)</span></div>
+    <div class="step"><b>7</b> Treinamento</div>
+    <div class="step"><b>8</b> Remarketing <span style="color:var(--cinza)">(opcional)</span></div>
+    <div class="step"><b>9</b> Comercial</div>
+  </div>
+</section>
+
+<!-- 13 FASE 1 -->
+<section class="slide">
+  <span class="tag">Fase 1</span>
+  <h2><span class="roxo">Planejamento</span></h2>
+  <p class="destaque">É a fase mais importante — e a que as pessoas mais pulam. É onde mais dá errado por conta disso.</p>
+  <ul class="lista">
+    <li><strong>Cronograma:</strong> cada fase e quando ela vai acontecer.</li>
+    <li><strong>Pessoas:</strong> quem vai trabalhar no projeto.</li>
+    <li><strong>Recursos e investimentos</strong> necessários.</li>
+    <li><strong>Metas</strong> a serem atingidas.</li>
+  </ul>
+  <p class="sub" style="margin-top:2vh">Materiais de apoio: Planilha Master do Lançamento Pago + script para ChatGPT + skill para Claude.</p>
+</section>
+
+<!-- 14 FASE 2 OVERVIEW -->
+<section class="slide">
+  <span class="tag">Fase 2</span>
+  <h2><span class="roxo">Recursos</span> — o que você precisa ter</h2>
+  <div class="fluxo-steps">
+    <div class="step">Página de vendas</div>
+    <div class="step">Investimento</div>
+    <div class="step">Tráfego pago</div>
+    <div class="step">Redes sociais</div>
+    <div class="step">Criativos</div>
+    <div class="step">Checkout</div>
+    <div class="step">Produto + entrega</div>
+    <div class="step">Treinamento</div>
+    <div class="step">Fluxo de atividades</div>
+  </div>
+</section>
+
+<!-- 15 PAGINA -->
+<section class="slide">
+  <span class="tag">Fase 2 · Recursos</span>
+  <h2><span class="roxo">Página</span> de vendas</h2>
+  <ul class="lista">
+    <li>Faça no mínimo uma <strong>página A e uma página B</strong> (teste A/B).</li>
+    <li>Hoje é fácil: dá para criar páginas com IAs — <strong>Lovable, Bolt.new, v0, Claude, ChatGPT</strong>.</li>
+  </ul>
+</section>
+
+<!-- 16 INVESTIMENTO -->
+<section class="slide">
+  <span class="tag">Fase 2 · Recursos</span>
+  <h2><span class="roxo">Investimento</span> e exposição máxima</h2>
+  <ul class="lista">
+    <li>Defina a <strong>exposição máxima</strong>: a perda aceitável que não quebra o seu negócio.</li>
+    <li>Ex.: "consigo perder R$5 mil" → exposição máxima de <strong>R$5.000</strong>.</li>
+    <li>Isso <strong>não</strong> significa investir só R$5 mil: você pode investir R$15 mil se voltarem R$10 mil em ingressos.</li>
+    <li>Atenção ao <strong>prazo de recebimento</strong>: 15 a 30 dias, conforme plataforma e meio de pagamento.</li>
+  </ul>
+</section>
+
+<!-- 17 SETUP -->
+<section class="slide">
+  <span class="tag">Fase 2 · Tráfego pago</span>
+  <h2>O <span class="roxo">setup</span> completo da conta</h2>
+  <ul class="lista">
+    <li>Conta de anúncios <strong>em dia e apta</strong>, sem pendências.</li>
+    <li>Página do <strong>Facebook e Instagram</strong> conectadas + <strong>domínio verificado</strong>.</li>
+    <li>Forma de pagamento aceita pelo Meta: <strong>Pix, boleto ou cartão</strong>.</li>
+    <li><strong>Pixel</strong> criado e instalado no site, com todas as tags configuradas.</li>
+    <li><strong>Públicos do Meta</strong> criados + atribuição de clientes configurada.</li>
+    <li>Se for usar mensagens: <strong>API oficial do WhatsApp</strong> configurada.</li>
+  </ul>
+</section>
+
+<!-- 18 CAMPANHAS -->
+<section class="slide">
+  <span class="tag">Fase 2 · Tráfego pago</span>
+  <h2>As <span class="roxo">campanhas</span></h2>
+  <ul class="lista">
+    <li>Todas as campanhas <strong>Advantage+</strong> · objetivo <strong>VENDA</strong> · orçamento <strong>CBO</strong>.</li>
+    <li>Público: Advantage + <strong>sugestão de idade e gênero</strong> + localização (Brasil, estado ou outro país).</li>
+    <li><strong>Público quente</strong> (perfil grande ou base acima de 3.000 leads): engajamento do perfil + listas anteriores — sempre como sugestão, com Advantage ligado.</li>
+  </ul>
+</section>
+
+<!-- 19 COST CAP -->
+<section class="slide">
+  <span class="tag">Fase 2 · Tráfego pago</span>
+  <h2>Campanhas de meta: <span class="roxo">cost cap</span> e <span class="roxo">ROAS cap</span></h2>
+  <ul class="lista">
+    <li><strong>Cost cap:</strong> sete a meta ~15% abaixo do CPA máximo que você pode pagar — ele tende a ultrapassar.</li>
+    <li><strong>ROAS cap:</strong> comece com ROAS 1; se não gastar, teste 0,7 a 0,8 observando.</li>
+    <li><strong>Orçamento:</strong> R$5 mil/dia e observe — não gasta tudo, mas pode passar um pouco.</li>
+    <li>Se não gastar nada: meta improvável <strong>ou</strong> pixel sem dados suficientes.</li>
+    <li>O Meta precisa de <strong>~50 conversões/semana</strong> para otimizar esse tipo de campanha.</li>
+  </ul>
+</section>
+
+<!-- 20 REDES -->
+<section class="slide">
+  <span class="tag">Fase 2 · Recursos</span>
+  <h2><span class="roxo">Redes sociais</span></h2>
+  <ul class="lista">
+    <li>Acompanhe com posts sobre o evento: <strong>carrosséis, imagens e vídeos</strong>.</li>
+    <li>Na semana do evento: <strong>prova social</strong> — sobre você, seu método e seu produto/imersão.</li>
+    <li><strong>Link na bio</strong> + destaque do evento no Instagram.</li>
+  </ul>
+</section>
+
+<!-- 21 CRIATIVOS -->
+<section class="slide">
+  <span class="tag">Fase 2 · Recursos</span>
+  <h2><span class="roxo">Criativos</span> que convertem</h2>
+  <p class="destaque">Vídeo e carrossel são os formatos que mais convertem. Imagens são fáceis de fazer com IA.</p>
+  <div class="cards c2" style="margin-top:2vh">
+    <div class="card"><h3>Estrutura do vídeo</h3><p><strong>1.</strong> Gancho nos 3 primeiros segundos (pergunta, dado forte, quebra de padrão)<br><strong>2.</strong> Desenvolvimento do tema / dor<br><strong>3.</strong> Solução = o seu evento<br><strong>4.</strong> CTA — chamada para comprar</p></div>
+    <div class="card"><h3>Como melhorar os resultados</h3><p>Modele os melhores anúncios na <strong>Biblioteca de Anúncios do Meta</strong> · observe os destaques de referências no Instagram · mostre de forma <strong>prática</strong> o que a pessoa vai aprender.</p></div>
+  </div>
+</section>
+
+<!-- 22 PRODUTO -->
+<section class="slide">
+  <span class="tag">Fase 2 · Recursos</span>
+  <h2>O <span class="roxo">produto</span>: regra de ouro</h2>
+  <p class="destaque">O workshop tem que ser <span class="roxo">prático</span>: a pessoa precisa sair fazendo algo — senão vira evento gratuito e ela se sente enganada.</p>
+  <ul class="lista">
+    <li><strong>Exceção:</strong> tema com nível de consciência baixo no mercado → a aula expositiva já basta.</li>
+    <li>Se o público for construir com IA durante o evento: <strong>atenção ao tempo</strong>.</li>
+  </ul>
+</section>
+
+<!-- 23 ENTREGA -->
+<section class="slide">
+  <span class="tag">Fase 2 · Recursos</span>
+  <h2>A <span class="roxo">entrega</span> do produto</h2>
+  <p class="sub">Na área de membros, crie um módulo de boas-vindas. Três opções:</p>
+  <div class="cards c3" style="margin-top:2vh">
+    <div class="card"><h3>Texto</h3><p>Mensagem com o link do grupo do WhatsApp + link da pesquisa.</p></div>
+    <div class="card"><h3>Vídeo de ~2 min</h3><p>Boas-vindas, acessos, horários, grupo, reforço dos order bumps e canal de dúvidas.</p></div>
+    <div class="card"><h3>PDF</h3><p>Documento com todas essas informações.</p></div>
+  </div>
+  <p class="sub" style="margin-top:2vh"><strong style="color:#fff">Extra:</strong> microaulas prévias para nivelar o público — e que viram <strong style="color:#fff">bônus na página de vendas</strong>.</p>
+</section>
+
+<!-- 24 PESQUISA -->
+<section class="slide">
+  <span class="tag">Fase 2 · Recursos</span>
+  <h2>A <span class="roxo">pesquisa</span> pós-compra</h2>
+  <ul class="lista">
+    <li>Crie no <strong>Google Forms</strong> e coloque o link no módulo de boas-vindas e no grupo.</li>
+    <li>Pergunte: perfil, interesses na metodologia, faturamento (direto ou por proxy: funcionários, clientes, ticket).</li>
+    <li>As duas perguntas de ouro: <strong>"O que você gostaria de ver na aula?"</strong> e <strong>"O que te decepcionaria se não tivesse?"</strong></li>
+  </ul>
+</section>
+
+<!-- 25 FLUXO ATIVIDADES -->
+<section class="slide">
+  <span class="tag">Fase 2 · Recursos</span>
+  <h2>O <span class="roxo">fluxo de atividades</span></h2>
+  <ul class="lista">
+    <li><strong>1.</strong> Construir com o time os prazos de entrega da página.</li>
+    <li><strong>2.</strong> Verificar com o banco se o dinheiro estará disponível nos momentos certos.</li>
+    <li><strong>3.</strong> Alinhar a produção dos conteúdos de redes sociais — o quê e quanto tempo antes.</li>
+    <li><strong>4.</strong> Produção dos criativos.</li>
+    <li><strong>5.</strong> Data exata para: checkout no ar, produto criado, entrega configurada.</li>
+    <li><strong>6.</strong> Cronograma do treinamento fechado e treinamento ensaiado.</li>
+  </ul>
+</section>
+
+<!-- 26 FASE 3 -->
+<section class="slide">
+  <span class="tag">Fase 3</span>
+  <h2><span class="roxo">Captação paga</span></h2>
+  <ul class="lista">
+    <li>Roda por <strong>15 a 45 dias</strong> — menos de 15 dificilmente junta o público necessário.</li>
+    <li>Usa os recursos: páginas, criativos e investimento.</li>
+    <li>Acompanhe o <strong>diário de vendas</strong> (aba da Planilha Master).</li>
+  </ul>
+</section>
+
+<!-- 27 METRICAS -->
+<section class="slide">
+  <span class="tag">Fase 3 · Captação</span>
+  <h2>As <span class="roxo">métricas</span> para acompanhar</h2>
+  <div class="cards c2">
+    <div class="card"><h3>Principais</h3><p><strong>Investimento</strong> · <strong>Quantidade de vendas</strong> · <strong>Custo por resultado (CPA)</strong></p></div>
+    <div class="card"><h3>Secundárias</h3><p><strong>CPM</strong> · <strong>CTR</strong> · <strong>Connect rate</strong> (clicou → chegou na página) · <strong>Conversão da página</strong> (chegou → comprou) · <strong>Conversão do checkout</strong></p></div>
+  </div>
+  <p class="sub" style="margin-top:2vh">Todas essas métricas saem do próprio Meta.</p>
+</section>
+
+<!-- 28 FASE 4 -->
+<section class="slide">
+  <span class="tag">Fase 4 · Opcional</span>
+  <h2><span class="roxo">Aquecimento</span></h2>
+  <p class="destaque">Separe 5 a 10% da verba para rodar conteúdos na última semana.</p>
+  <ul class="lista">
+    <li><strong>Conteúdos de consciência:</strong> sua metodologia, o que você defende, conexão com você.</li>
+    <li><strong>Conteúdos pré-evento:</strong> sobre o tema, para elevar o nível de consciência antes.</li>
+    <li><strong>Depoimentos:</strong> sobre você, seu método ou o produto que virá — plantando a sementinha.</li>
+  </ul>
+</section>
+
+<!-- 29 FASE 5 -->
+<section class="slide">
+  <span class="tag">Fase 5 · Opcional</span>
+  <h2><span class="roxo">Lembrete</span></h2>
+  <ul class="lista">
+    <li>Campanhas de contagem regressiva: <strong>"faltam 5 dias… 4… 3… 2… é amanhã… é HOJE"</strong>.</li>
+    <li>Criativos em imagem ou vídeo.</li>
+    <li>Totalmente opcional: já rodamos com e sem, e não percebemos grande diferença.</li>
+  </ul>
+</section>
+
+<!-- 30 FASE 6 -->
+<section class="slide">
+  <span class="tag">Fase 6 · Opcional</span>
+  <h2><span class="roxo">Retarget</span> — ingresso não garantido</h2>
+  <ul class="lista">
+    <li>Anúncios para quem se interessou mas <strong>não comprou o ingresso</strong>.</li>
+    <li>O famoso: <strong>"Eu sei que você se interessou pela imersão, mas não garantiu o seu ingresso."</strong></li>
+    <li>Dê argumentos — ou um <strong>desconto exclusivo</strong>: "você só vai ver essa oferta uma vez".</li>
+    <li>Para valer o "uma vez": <strong>exclua da campanha</strong> quem já viu 25% do criativo do desconto.</li>
+  </ul>
+</section>
+
+<!-- 31 FASE 7 SECAO -->
+<section class="slide secao">
+  <div class="numero-secao">F7</div>
+  <h1>O <span class="roxo">treinamento</span><br>(o evento)</h1>
+</section>
+
+<!-- 32 ESTRUTURA GERAL -->
+<section class="slide">
+  <span class="tag">Fase 7 · Treinamento</span>
+  <h2>Estrutura geral — <span class="roxo">todo formato</span></h2>
+  <ul class="lista">
+    <li><strong>Abertura:</strong> countdown / vídeo enquanto o público chega + apresentação do cronograma.</li>
+    <li><strong>Alinhamento de expectativas:</strong> entregas + resultado esperado + incentivo a depoimentos ao vivo ("tá pago" ou a frase da sua metodologia).</li>
+    <li><strong>Conteúdo em sequência</strong> pela metodologia Eugene Schwartz: do nível de consciência mais baixo ao mais alto.</li>
+    <li><strong>Almoço de 1h a 1h30 no máximo</strong> — na volta, resumo do bloco anterior.</li>
+    <li><strong>Registro com a audiência</strong> (opcional): foto + stories no pico de audiência.</li>
+  </ul>
+</section>
+
+<!-- 33 ENTREGA ANCORADA -->
+<section class="slide">
+  <span class="tag">Fase 7 · Treinamento</span>
+  <h2>A <span class="roxo">entrega ancorada</span></h2>
+  <p class="destaque">Prometa um material — resumo, template, planilha — para quem ficar até o final.</p>
+  <ul class="lista">
+    <li><strong>1 dia:</strong> promete de manhã, entrega à tarde · <strong>2 dias:</strong> no fim de cada dia · <strong>3-4h:</strong> no final.</li>
+    <li>Formas de entrega: <strong>site com senha</strong> (ChatGPT/Claude criam), área de membros ou WhatsApp.</li>
+    <li><strong>Palavra-chave no final</strong> → o comercial liga: "tenho um presente, me dá a palavra-chave?"</li>
+    <li>Quem não tem a palavra-chave e quer o presente → oportunidade de <strong>vender a gravação</strong>.</li>
+  </ul>
+</section>
+
+<!-- 34 PITCH -->
+<section class="slide">
+  <span class="tag">Fase 7 · Treinamento</span>
+  <h2>O <span class="roxo">pitch</span> — sempre antes de uma pausa</h2>
+  <ul class="lista">
+    <li><strong>Storytelling</strong> + apresentação do produto + ancoragem de valor.</li>
+    <li>O convite: <strong>"quem entrar no grupo de interessados vai pagar menos"</strong> → grupo de pré-venda.</li>
+    <li><strong>Coffee de 10-15 min</strong> para o pessoal entrar no grupo — e você mapear os interessados.</li>
+    <li>Logo depois do pitch: <strong>case de sucesso</strong> da metodologia.</li>
+  </ul>
+</section>
+
+<!-- 35 FORMATOS -->
+<section class="slide">
+  <span class="tag">Fase 7 · Treinamento</span>
+  <h2>Os <span class="roxo">3 formatos</span></h2>
+  <div class="cards c3">
+    <div class="card"><h3>2 dias</h3><p><strong>Dia 1:</strong> conteúdo + Pitch 1 + grupo de pré-venda.<br><strong>Dia 2:</strong> seeding, Pitch 2 e 3, inscrições abertas, entrega no final.</p></div>
+    <div class="card"><h3>1 dia</h3><p>Ancora a entrega de manhã. Pitch 1 antes do café + grupo. Depois: ~30 min de conteúdo, Pitch 2, conteúdo final + entrega.</p></div>
+    <div class="card"><h3>3-4 horas</h3><p>Pitch + grupo → pausa do café (comercial fala 1 a 1) → conteúdo → oferta logo depois + entrega no final.</p></div>
+  </div>
+  <p class="sub" style="margin-top:2vh">Cronogramas completos, com horários editáveis, na planilha do treinamento.</p>
+</section>
+
+<!-- 36 FASE 8 -->
+<section class="slide">
+  <span class="tag">Fase 8 · Opcional</span>
+  <h2><span class="roxo">Remarketing</span> pós-oferta</h2>
+  <ul class="lista">
+    <li>Roda <strong>depois que a oferta foi feita</strong> no evento.</li>
+    <li>Funil via aplicação → anúncios vendendo a <strong>aplicação</strong>.</li>
+    <li>Produto mais barato que valha a pena → <strong>ofertas diretas</strong>.</li>
+    <li>Anúncios de: <strong>quebra de objeção</strong>, <strong>depoimentos</strong> e o seu <strong>método na prática</strong>.</li>
+  </ul>
+</section>
+
+<!-- 37 FASE 9 -->
+<section class="slide">
+  <span class="tag">Fase 9</span>
+  <h2><span class="roxo">Comercial</span> — atravessa todo o lançamento</h2>
+  <ul class="lista">
+    <li>Começa na captação: público <strong>abaixo de 300 pessoas</strong> → contato 1 a 1, criando relacionamento.</li>
+    <li><strong>Grupo de pré-venda:</strong> comunicação durante o evento, na oferta e no pós-oferta.</li>
+    <li><strong>Social selling no Instagram:</strong> oferta da imersão e depois do produto mais caro.</li>
+    <li>Acompanha também o remarketing — e comunica no <strong>orgânico</strong>.</li>
+  </ul>
+</section>
+
+<!-- 38 SECAO FECHAMENTO -->
+<section class="slide secao">
+  <div class="numero-secao">03</div>
+  <h1><span class="roxo">Fechamento</span></h1>
+</section>
+
+<!-- 39 CUSTO X LUCRO -->
+<section class="slide">
+  <span class="tag">Fechamento</span>
+  <h2>Custo <span class="roxo">x</span> Lucro</h2>
+  <div class="cards c2">
+    <div class="card"><div class="num">01</div><p>Em vez de pagar para a pessoa assistir sua aula gratuita, você <strong>já monetiza vendendo para ela</strong>.</p></div>
+    <div class="card"><div class="num">02</div><p>Você pode começar com um <strong>investimento muito baixo</strong> e ir aumentando mediante suas vendas.</p></div>
+    <div class="card"><div class="num">03</div><p>Você consegue pessoas com um <strong>nível de consciência muito mais elevado</strong> para a sua próxima proposta.</p></div>
+    <div class="card"><div class="num">04</div><p>É <strong>mais fácil vender para quem já comprou</strong> de você do que para quem nunca abriu a carteira.</p></div>
+  </div>
+</section>
+
+<!-- 40 QUANDO FAZER -->
+<section class="slide">
+  <span class="tag">Fechamento</span>
+  <h2><span class="roxo">Quando</span> fazer?</h2>
+  <div class="cards c2">
+    <div class="card"><div class="num">01</div><p>Quando você tem um <strong>produto mais caro</strong> para vender — mentoria, consultoria, acompanhamento ou serviço. <strong>Acima de R$5.000 já dá para fazer.</strong></p></div>
+    <div class="card"><div class="num">02</div><p>Quando a audiência está <strong>ansiosa por algo novo</strong> — e não somente mais do mesmo — e você quer testar algo novo.</p></div>
+    <div class="card"><div class="num">03</div><p>Quando o seu <strong>custo por lead está caro demais</strong> e não está compensando investir.</p></div>
+    <div class="card"><div class="num">04</div><p>Quando você quer <strong>filtrar ainda mais o público</strong> e trazer pessoas com nível de consciência mais elevado.</p></div>
+  </div>
+</section>
+
+<!-- 41 INVESTIMENTO FAIXAS -->
+<section class="slide">
+  <span class="tag">Fechamento</span>
+  <h2><span class="roxo">Investimento</span>: o que esperar</h2>
+  <table class="tb">
+    <tr><th>Faixa de investimento</th><th>O que geralmente acontece</th></tr>
+    <tr><td><b>Até R$10.000</b></td><td>Você tem <b>lucro</b> na venda do ingresso</td></tr>
+    <tr><td><b>R$10.000 a R$50.000</b></td><td><b>Empata</b> o valor do ingresso</td></tr>
+    <tr><td><b>Acima de R$50.000</b></td><td>Você <b>perde</b> no valor do ingresso</td></tr>
+  </table>
+</section>
+
+<!-- 42 PRECO -->
+<section class="slide">
+  <span class="tag">Fechamento</span>
+  <h2><span class="roxo">Preço</span>: quanto cobrar pelo treinamento?</h2>
+  <p class="destaque">Depende muito da entrega. Quanto mais longo e melhor a entrega, mais caro.</p>
+  <div class="fluxo-steps" style="margin-top:2vh">
+    <div class="step">R$ 9,90</div>
+    <div class="step">R$ 19,90</div>
+    <div class="step">R$ 47</div>
+    <div class="step">R$ 99,90</div>
+    <div class="step">R$ 197</div>
+    <div class="step">R$ 247</div>
+    <div class="step">R$ 297</div>
+  </div>
+  <p class="sub" style="margin-top:2.5vh">Exemplo: <strong style="color:#fff">2 dias inteiros de treinamento → de R$147 a R$297</strong>.</p>
+</section>
+
+<!-- 43 SERVE PARA MIM -->
+<section class="slide">
+  <span class="tag">Fechamento</span>
+  <h2>Serve <span class="roxo">para mim</span>?</h2>
+  <p class="destaque">Serve para quase todo tipo de negócio — alguns precisam de adaptações, mas funciona de todo jeito.</p>
+  <div class="fluxo-steps" style="margin-top:2vh">
+    <div class="step">Cursos</div>
+    <div class="step">Mentorias</div>
+    <div class="step">Consultorias</div>
+    <div class="step">Serviços</div>
+    <div class="step">Até produtos físicos</div>
+  </div>
+</section>
+
+<!-- 44 ENCERRAMENTO -->
+<section class="slide capa">
+  <span class="tag">Lançamento Pago</span>
+  <h1>Agora é <span class="roxo">executar</span>.</h1>
+  <div class="linha"></div>
+  <p class="sub">Planeje, capte, entregue um workshop que vale o ingresso — e faça a oferta.<br>Rafael Brito · Brito Mídias</p>
+</section>
+
+<script>
+const slides = document.querySelectorAll('.slide');
+let atual = 0;
+function mostrar(i) {
+  atual = Math.max(0, Math.min(slides.length - 1, i));
+  slides.forEach((s, j) => s.classList.toggle('active', j === atual));
+  document.getElementById('progresso').style.width = ((atual + 1) / slides.length * 100) + '%';
+  document.getElementById('contador').textContent = (atual + 1) + ' / ' + slides.length;
+  location.hash = atual + 1;
+}
+document.getElementById('prox').onclick = () => mostrar(atual + 1);
+document.getElementById('ant').onclick = () => mostrar(atual - 1);
+document.addEventListener('keydown', e => {
+  if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) mostrar(atual + 1);
+  if (['ArrowLeft', 'PageUp'].includes(e.key)) mostrar(atual - 1);
+  if (e.key === 'Home') mostrar(0);
+  if (e.key === 'End') mostrar(slides.length - 1);
+});
+let x0 = null;
+document.addEventListener('touchstart', e => x0 = e.touches[0].clientX);
+document.addEventListener('touchend', e => {
+  if (x0 === null) return;
+  const dx = e.changedTouches[0].clientX - x0;
+  if (Math.abs(dx) > 50) mostrar(atual + (dx < 0 ? 1 : -1));
+  x0 = null;
+});
+mostrar(parseInt(location.hash.slice(1)) - 1 || 0);
+</script>
+</body>
+</html>
