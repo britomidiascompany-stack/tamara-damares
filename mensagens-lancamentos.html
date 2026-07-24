@@ -174,12 +174,27 @@ nav.abas-categoria { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4v
 .bloco.bloco-pendente { border-style: dashed; background: var(--bg-soft); }
 .bloco-nota { font-size: 13px; font-weight: 300; color: var(--cinza); font-style: italic; }
 
+.campo-editavel {
+  font-family: inherit; font-size: inherit; font-weight: 600; color: var(--roxo-dark);
+  border: none; border-bottom: 2px dashed var(--roxo-light); background: var(--roxo-xlight);
+  padding: 1px 6px; border-radius: 4px; width: 76px; text-align: center;
+}
+.campo-editavel:focus { outline: none; border-bottom-style: solid; }
+
+.bloco-instrucao {
+  margin-top: 12px; font-size: 12.5px; font-weight: 300; color: var(--cinza);
+  font-style: italic; line-height: 1.5;
+}
+
 .msg-card.placeholder {
   border-style: dashed; background: transparent;
-  display: flex; align-items: center; justify-content: center;
-  padding: 22px 28px; min-height: 60px;
+  padding: 22px 28px;
 }
 .msg-card.placeholder .msg-titulo { font-size: 14px; font-weight: 500; color: var(--cinza); }
+.placeholder-nota {
+  margin-top: 8px; font-size: 13px; font-weight: 300; color: var(--cinza);
+  max-width: 760px; line-height: 1.55;
+}
 
 .estado-vazio {
   border: 1px dashed var(--linha); border-radius: 18px;
@@ -287,14 +302,13 @@ const LANCAMENTOS = {
           { titulo: 'Mensagem 3', placeholder: true }
         ]
       },
-      { key: 'dia1', label: 'Dia 1 (25/07)', mensagens: [] },
       {
-        key: 'dia2',
-        label: 'Dia 2 (26/07)',
+        key: 'dia1',
+        label: 'Dia 1 (25/07)',
         mensagens: [
           {
             titulo: 'Mensagem 1',
-            horario: 'Envio: 26/07 às 08:00',
+            horario: 'Envio: 25/07 às 08:00',
             blocos: [
               {
                 texto: `Bom diaaa! 🤎🤎\n\nHoje é o grande dia da Imersão Jornada da Autoridade!\n\nA gente começa em 1 h, então aproveita pra se organizar:\n\nPega sua taça, encontra um cantinho tranquilo e se prepara pra mergulhar em muito conteúdo prático.`
@@ -302,32 +316,81 @@ const LANCAMENTOS = {
               {
                 texto: `Algumas diquinhas pra aproveitar melhor o dia: \n\n✅ Tenha um caderno e uma caneta à mão pra anotar os insights.\n✅ Participe, faça perguntas e interaja com o grupo.\n✅ E claro, aproveite para fazer networking com outras participantes!\n\nVai ser intenso e transformador.\n\n🚀 O palco está te esperando!`
               },
-              { pendente: true, nota: 'Aguardando o link do Zoom para preencher este bloco.' }
+              {
+                texto: `Clique no link abaixo 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+              }
             ]
           },
           {
             titulo: 'Mensagem 2',
-            horario: 'Envio: 26/07 às 09:00',
+            horario: 'Envio: 25/07 às 09:00',
             blocos: [
               {
                 texto: `🚨 Começouuu!\n\nA Imersão Jornada da Autoridade já está ao vivo! 💫\n\nEstamos abrindo o evento com um conteúdo poderoso sobre como estruturar e lucrar com eventos Pocket, mesmo começando do zero.`,
                 anexo: { label: '🖼️ Ver imagem enviada junto', url: 'https://drive.google.com/file/d/1zaXEN-lktSHkAuvnG5TDFaoaQU7VDddD/view?usp=drive_link' }
               },
-              { pendente: true, nota: 'Aguardando o link de acesso (mesmo link usado nas mensagens deste dia).' }
+              {
+                texto: `Clique no link abaixo 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+              }
             ]
           },
           {
             titulo: 'Mensagem 3',
-            horario: 'Envio: 26/07 às 09:15',
+            horario: 'Envio: 25/07 às 09:15',
             blocos: [
               {
                 texto: `🚨 Estamos ao vivo!\n\nA Imersão Jornada da Autoridade já está ao vivo! 💫\n\nEstamos abrindo o evento com um conteúdo poderoso sobre como estruturar e lucrar com eventos Pocket, mesmo começando do zero.`
               },
-              { pendente: true, nota: 'Aguardando o link de acesso (mesmo link usado nas mensagens deste dia).' }
+              {
+                texto: `Clique no link abaixo 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 4',
+            gatilho: true,
+            horario: 'Quando a Tamara chegar neste slide (Posicionamento Estratégico)',
+            blocos: [
+              {
+                texto: `Ei, você tá aí? 👀\n\nA Imersão tá pegando fogo 🔥\n\nAgora estamos falando sobre Posicionamento Estratégico, o segredo para alinhar sua oferta, comunicação e presença no palco para vender mais.`,
+                anexo: { label: '🖼️ Ver slide de referência (envie quando ele aparecer)', url: 'https://drive.google.com/file/d/1nIqbCa3_UHJ1672rc1xfdm6-j95kkh6r/view?usp=drive_link' }
+              },
+              {
+                texto: `Clique no link abaixo 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 5',
+            gatilho: true,
+            horario: 'Quando a Tamara avisar a pausa do almoço',
+            blocos: [
+              {
+                texto: `🍽️ Hora da pausa!\n\nVamos dar uma paradinha pro almoço e voltamos às {{HORARIO}}\ncom mais conteúdo poderoso.\n\nAproveita pra descansar, se hidratar e voltar cheia de energia, porque a tarde promete! 💪\n\n🚀 O palco te espera na volta.`,
+                editavel: { token: '{{HORARIO}}', default: '13h00' },
+                instrucao: 'Preencha com o horário de volta que a Tamara falar ao vivo (ex.: "13h00" ou "daqui 40 minutos") e envie assim que ela avisar a pausa.'
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 6',
+            placeholder: true,
+            nota: 'Mensagem "Estamos de volta" — texto final ainda não definido. À tarde os temas são: como transformar a ideia de um evento em uma cidade real · como montar um cronograma de ingresso de evento · o que faz o evento lotar · outros assuntos.'
+          },
+          {
+            titulo: 'Mensagem 7',
+            gatilho: true,
+            horario: 'Quando aparecer o slide com QR Code do grupo de pré-venda',
+            blocos: [
+              {
+                texto: `https://chat.whatsapp.com/CBAabGCQGjI9bOlE92sNPT?s=cl&p=i&mlu=4`,
+                instrucao: 'Contexto: a Tamara anuncia bônus exclusivos (mais de R$50.000 em valor) por ordem de compra e chama para entrar no grupo de pré-venda antes de mostrar o QR Code. Envie o link assim que o slide aparecer.'
+              }
             ]
           }
         ]
-      }
+      },
+      { key: 'dia2', label: 'Dia 2 (26/07)', mensagens: [] }
     ]
   }
 };
@@ -351,31 +414,46 @@ function renderBloco(bloco, idx) {
       <div class="bloco-nota">⏳ ${bloco.nota || 'Conteúdo ainda não cadastrado.'}</div>
     </div>`;
   }
-  const textoHtml = linkify(escapeHtml(bloco.texto));
+  let textoHtml;
+  if (bloco.editavel) {
+    const partes = bloco.texto.split(bloco.editavel.token);
+    const antes = linkify(escapeHtml(partes[0]));
+    const depois = linkify(escapeHtml(partes[1]));
+    textoHtml = `${antes}<input type="text" class="campo-editavel" data-token="${encodeURIComponent(bloco.editavel.token)}" value="${bloco.editavel.default}">${depois}`;
+  } else {
+    textoHtml = linkify(escapeHtml(bloco.texto));
+  }
   const anexoHtml = bloco.anexo
     ? `<a class="anexo" href="${bloco.anexo.url}" target="_blank" rel="noopener">${bloco.anexo.label}</a>`
     : '';
+  const instrucaoHtml = bloco.instrucao ? `<div class="bloco-instrucao">ℹ️ ${bloco.instrucao}</div>` : '';
   return `
     <div class="bloco">
       <button class="btn-copiar" onclick="copiarBloco(this)" aria-label="Copiar bloco" title="Copiar texto">${iconeCopiar}</button>
       <div class="bloco-label">Bloco ${idx + 1}</div>
       <div class="bloco-texto" data-raw="${encodeURIComponent(bloco.texto)}">${textoHtml}</div>
       ${anexoHtml}
+      ${instrucaoHtml}
     </div>`;
 }
 
 function renderMensagem(msg) {
   if (msg.placeholder) {
-    return `<div class="msg-card placeholder"><span class="msg-titulo">${msg.titulo} · ainda não cadastrada</span></div>`;
+    return `
+    <div class="msg-card placeholder">
+      <div>
+        <span class="msg-titulo">${msg.titulo} · ainda não cadastrada</span>
+        ${msg.nota ? `<div class="placeholder-nota">${msg.nota}</div>` : ''}
+      </div>
+    </div>`;
   }
   const blocosHtml = msg.blocos.map(renderBloco).join('');
-  const raws = msg.blocos.filter(b => !b.pendente).map(b => b.texto);
   return `
     <div class="msg-card">
       <div class="msg-topo">
         <span class="msg-titulo">${msg.titulo}</span>
-        ${msg.horario ? `<span class="chip">🕐 ${msg.horario}</span>` : ''}
-        <button class="btn-copiar-tudo" onclick="copiarTudo(this)" data-raws='${encodeURIComponent(JSON.stringify(raws))}'>${iconeCopiar} Copiar mensagem completa</button>
+        ${msg.horario ? `<span class="chip">${msg.gatilho ? '🎯' : '🕐'} ${msg.horario}</span>` : ''}
+        <button class="btn-copiar-tudo" onclick="copiarTudo(this)">${iconeCopiar} Copiar mensagem completa</button>
       </div>
       <div class="blocos">${blocosHtml}</div>
     </div>`;
@@ -443,15 +521,25 @@ function feedbackCopiado(el) {
   setTimeout(() => { el.classList.remove('copiado'); el.innerHTML = original; }, 1500);
 }
 
+function textoAtualDoBloco(bloco) {
+  let texto = decodeURIComponent(bloco.querySelector('.bloco-texto').dataset.raw);
+  const input = bloco.querySelector('.campo-editavel');
+  if (input) {
+    const token = decodeURIComponent(input.dataset.token);
+    texto = texto.split(token).join(input.value || input.placeholder || '');
+  }
+  return texto;
+}
+
 function copiarBloco(btn) {
   const bloco = btn.closest('.bloco');
-  const texto = decodeURIComponent(bloco.querySelector('.bloco-texto').dataset.raw);
-  copiarParaClipboard(texto, btn);
+  copiarParaClipboard(textoAtualDoBloco(bloco), btn);
 }
 
 function copiarTudo(btn) {
-  const raws = JSON.parse(decodeURIComponent(btn.dataset.raws));
-  copiarParaClipboard(raws.join('\n\n'), btn);
+  const card = btn.closest('.msg-card');
+  const textos = [...card.querySelectorAll('.blocos > .bloco:not(.bloco-pendente)')].map(textoAtualDoBloco);
+  copiarParaClipboard(textos.join('\n\n'), btn);
 }
 
 function copiarParaClipboard(texto, btn) {
