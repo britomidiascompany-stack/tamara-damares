@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mensagens dos Lançamentos — Tamara Damares</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0A0A0F;
+  --bg2: #121218;
+  --bg3: #1A1A22;
+  --roxo: #A855F7;
+  --roxo-escuro: #7C3AED;
+  --roxo-suave: rgba(168, 85, 247, 0.12);
+  --branco: #FFFFFF;
+  --cinza: #B8B8C4;
+  --cinza-escuro: #7A7A88;
+  --borda: rgba(168, 85, 247, 0.25);
+  --verde: #34D399;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { min-height: 100%; background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--branco); }
+body { padding: 5vh 6vw 8vh; }
+
+header.topo { max-width: 1100px; margin: 0 auto 4vh; }
+.tag {
+  display: inline-block;
+  background: var(--roxo-suave);
+  border: 1px solid var(--borda);
+  color: var(--roxo);
+  font-size: clamp(11px, 1.3vw, 13px);
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 999px;
+  margin-bottom: 2vh;
+  width: fit-content;
+}
+h1 { font-size: clamp(26px, 4vw, 44px); font-weight: 800; line-height: 1.15; margin-bottom: 1vh; }
+h1 .roxo { color: var(--roxo); }
+p.sub { font-size: clamp(14px, 1.6vw, 17px); color: var(--cinza); font-weight: 300; max-width: 700px; }
+
+.wrap { max-width: 1100px; margin: 0 auto; }
+
+/* --- abas de lançamento --- */
+nav.abas-lancamento {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 3vh; border-bottom: 1px solid var(--borda); padding-bottom: 2.2vh;
+}
+.aba-lanc {
+  background: var(--bg2);
+  border: 1px solid var(--borda);
+  color: var(--cinza);
+  font-family: inherit; font-size: 14px; font-weight: 600;
+  padding: 10px 22px; border-radius: 999px;
+  cursor: pointer; transition: all .15s;
+}
+.aba-lanc:hover { color: var(--branco); border-color: var(--roxo); }
+.aba-lanc.ativa { background: var(--roxo); color: var(--branco); border-color: var(--roxo); }
+.aba-lanc.em-breve { opacity: .4; cursor: not-allowed; }
+.aba-lanc.em-breve:hover { color: var(--cinza); border-color: var(--borda); }
+
+/* --- categorias dentro do lançamento (onboard / dia 1 / dia 2) --- */
+nav.abas-categoria { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 3.5vh; }
+.aba-cat {
+  background: transparent;
+  border: 1px solid var(--borda);
+  color: var(--cinza);
+  font-family: inherit; font-size: 13px; font-weight: 500;
+  padding: 8px 18px; border-radius: 10px;
+  cursor: pointer; transition: all .15s;
+}
+.aba-cat:hover { color: var(--branco); }
+.aba-cat.ativa { background: var(--roxo-suave); color: var(--roxo); border-color: var(--roxo); font-weight: 600; }
+
+.painel-lancamento { display: none; }
+.painel-lancamento.ativo { display: block; animation: fadein .3s ease; }
+.painel-categoria { display: none; }
+.painel-categoria.ativo { display: block; animation: fadein .3s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+/* --- card de mensagem --- */
+.msg-card {
+  background: var(--bg2);
+  border: 1px solid var(--borda);
+  border-radius: 18px;
+  padding: 2.2vh 1.8vw;
+  margin-bottom: 2.4vh;
+}
+.msg-topo {
+  display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
+  margin-bottom: 1.8vh;
+}
+.msg-titulo { font-size: clamp(16px, 1.9vw, 20px); font-weight: 700; }
+.chip {
+  font-size: 12px; font-weight: 500; color: var(--cinza);
+  background: var(--bg3); border: 1px solid var(--borda);
+  padding: 5px 12px; border-radius: 999px;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.chip.horario { color: var(--roxo); }
+.btn-copiar-tudo {
+  margin-left: auto;
+  background: none; border: 1px solid var(--borda); color: var(--cinza);
+  font-family: inherit; font-size: 12px; font-weight: 600;
+  padding: 6px 14px; border-radius: 8px; cursor: pointer;
+  display: flex; align-items: center; gap: 6px; transition: all .15s;
+}
+.btn-copiar-tudo:hover { color: var(--roxo); border-color: var(--roxo); }
+.btn-copiar-tudo.copiado { color: var(--verde); border-color: var(--verde); }
+.btn-copiar-tudo svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+.blocos { display: flex; flex-direction: column; gap: 14px; }
+.bloco {
+  position: relative;
+  background: var(--bg3);
+  border: 1px solid var(--borda);
+  border-radius: 14px;
+  padding: 1.8vh 1.6vw 1.6vh;
+}
+.bloco .bloco-label {
+  font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--cinza-escuro); margin-bottom: 1vh;
+}
+.bloco .bloco-texto {
+  font-size: clamp(13.5px, 1.5vw, 15.5px); font-weight: 300; color: var(--branco);
+  line-height: 1.6; white-space: pre-wrap; padding-right: 42px;
+}
+.bloco .bloco-texto a { color: var(--roxo); word-break: break-all; }
+.bloco .anexo {
+  margin-top: 1.4vh; display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12.5px; font-weight: 500; color: var(--roxo);
+  background: var(--roxo-suave); border: 1px solid var(--borda);
+  padding: 6px 14px; border-radius: 999px; text-decoration: none;
+}
+.bloco .anexo:hover { background: var(--roxo); color: var(--branco); }
+
+.bloco.bloco-pendente { border-style: dashed; }
+.bloco-nota { font-size: 13px; font-weight: 300; color: var(--cinza-escuro); font-style: italic; }
+
+.btn-copiar {
+  position: absolute; top: 14px; right: 14px;
+  width: 30px; height: 30px; border-radius: 8px;
+  background: var(--bg2); border: 1px solid var(--borda);
+  color: var(--cinza); cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all .15s;
+}
+.btn-copiar:hover { border-color: var(--roxo); color: var(--roxo); }
+.btn-copiar.copiado { border-color: var(--verde); color: var(--verde); }
+.btn-copiar svg { width: 15px; height: 15px; }
+
+/* --- placeholder (mensagem ainda não cadastrada) --- */
+.msg-card.placeholder {
+  border-style: dashed;
+  opacity: .55;
+  display: flex; align-items: center; justify-content: center;
+  padding: 2.6vh 1.8vw; min-height: 70px;
+}
+.msg-card.placeholder .msg-titulo { font-size: 14px; font-weight: 500; color: var(--cinza-escuro); }
+
+.estado-vazio {
+  border: 1px dashed var(--borda); border-radius: 18px;
+  padding: 5vh 2vw; text-align: center; color: var(--cinza-escuro);
+  font-size: 14px; font-weight: 300;
+}
+
+@media (max-width: 760px) {
+  body { padding: 4vh 6vw 10vh; }
+  .msg-topo { flex-direction: column; align-items: flex-start; }
+  .btn-copiar-tudo { margin-left: 0; }
+}
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <span class="tag">Tamara Damares · Brito Mídias</span>
+  <h1>Mensagens dos <span class="roxo">Lançamentos</span></h1>
+  <p class="sub">Catálogo de mensagens prontas para envio no grupo do WhatsApp — organizadas por lançamento. Clique no ícone de cópia em cada bloco para copiar o texto.</p>
+</header>
+
+<div class="wrap">
+  <nav class="abas-lancamento" id="abasLancamento"></nav>
+  <div id="paineisLancamento"></div>
+</div>
+
+<script>
+const LANCAMENTOS = {
+  tp09: {
+    label: 'TP09',
+    categorias: [
+      {
+        key: 'onboard',
+        label: 'Onboard (pré-evento)',
+        mensagens: [
+          {
+            titulo: 'Mensagem 1',
+            horario: 'Envio: hoje, 24/07 às 18:00',
+            blocos: [
+              {
+                texto: `Ansioso(a) para o nosso encontro? 🚀\n\nA Imersão Jornada da Autoridade acontece neste final de semana, nos dias 27 e 28 de junho  (AMANHÃ), 100% online pelo Zoom.\n\n🕒 Horários da Imersão:\n\n👉 Sábado (27/06): das 09h00 às 16h00\n👉 Domingo (28/06): das 09h00 às 12h00`,
+                anexo: { label: '🖼️ Ver imagem enviada junto', url: 'https://drive.google.com/file/d/11hG2PxMlOhf-tFLhI7Nvd_5wu6_DoHGN/view?usp=drive_link' }
+              },
+              {
+                texto: `📍 Onde vai rolar?\nA Imersão será pelo Zoom, e o link de acesso será enviado 1 hora antes do início, aqui no grupo de avisos.\n\n🎞️ Vai ter replay?\nSim! Mas o replay é uma entrega à parte e não está incluso no ingresso do evento ao vivo.\n\nQuem quiser garantir acesso às gravações poderá adquirir o replay por R$97,00.\n\nhttps://pay.zouti.com.br/checkout?product_offer_id=prod_offer_mcmanegurm4ljk3vlz0564`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 2',
+            horario: 'Envio: hoje, 24/07 às 18:10',
+            blocos: [
+              {
+                texto: `Olá, maravilhosas !\n\nPara que a sua experiência na imersão seja ainda mais direcionada, criamos um formulário rápido para entender o seu momento atual, seu negócio, seus desafios e suas expectativas.\n\nResponda com sinceridade, porque essas informações vão nos ajudar a conduzir uma imersão mais estratégica, profunda e transformadora para você.\n\nLink do formulário:\nhttps://forms.gle/n1cd5hNSBnkJcbbBA\n\nTe espero preparada para viver uma virada!`
+              }
+            ]
+          },
+          { titulo: 'Mensagem 3', placeholder: true }
+        ]
+      },
+      { key: 'dia1', label: 'Dia 1 (25/07)', mensagens: [] },
+      {
+        key: 'dia2',
+        label: 'Dia 2 (26/07)',
+        mensagens: [
+          {
+            titulo: 'Mensagem 1',
+            horario: 'Envio: 26/07 às 08:00',
+            blocos: [
+              {
+                texto: `Bom diaaa! 🤎🤎\n\nHoje é o grande dia da Imersão Jornada da Autoridade!\n\nA gente começa em 1 h, então aproveita pra se organizar:\n\nPega sua taça, encontra um cantinho tranquilo e se prepara pra mergulhar em muito conteúdo prático.`
+              },
+              {
+                texto: `Algumas diquinhas pra aproveitar melhor o dia: \n\n✅ Tenha um caderno e uma caneta à mão pra anotar os insights.\n✅ Participe, faça perguntas e interaja com o grupo.\n✅ E claro, aproveite para fazer networking com outras participantes!\n\nVai ser intenso e transformador.\n\n🚀 O palco está te esperando!`
+              },
+              { pendente: true, nota: 'Aguardando o link do Zoom para preencher este bloco.' }
+            ]
+          },
+          {
+            titulo: 'Mensagem 2',
+            horario: 'Envio: 26/07 às 09:00',
+            blocos: [
+              {
+                texto: `🚨 Começouuu!\n\nA Imersão Jornada da Autoridade já está ao vivo! 💫\n\nEstamos abrindo o evento com um conteúdo poderoso sobre como estruturar e lucrar com eventos Pocket, mesmo começando do zero.`,
+                anexo: { label: '🖼️ Ver imagem enviada junto', url: 'https://drive.google.com/file/d/1zaXEN-lktSHkAuvnG5TDFaoaQU7VDddD/view?usp=drive_link' }
+              },
+              { pendente: true, nota: 'Aguardando o link de acesso (mesmo link usado nas mensagens deste dia).' }
+            ]
+          },
+          {
+            titulo: 'Mensagem 3',
+            horario: 'Envio: 26/07 às 09:15',
+            blocos: [
+              {
+                texto: `🚨 Estamos ao vivo!\n\nA Imersão Jornada da Autoridade já está ao vivo! 💫\n\nEstamos abrindo o evento com um conteúdo poderoso sobre como estruturar e lucrar com eventos Pocket, mesmo começando do zero.`
+              },
+              { pendente: true, nota: 'Aguardando o link de acesso (mesmo link usado nas mensagens deste dia).' }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+};
+
+const iconeCopiar = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+const iconeCheck = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+function escapeHtml(str) {
+  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function linkify(html) {
+  return html.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+}
+
+function renderBloco(bloco, idx) {
+  if (bloco.pendente) {
+    return `
+    <div class="bloco bloco-pendente">
+      <div class="bloco-label">Bloco ${idx + 1}</div>
+      <div class="bloco-nota">⏳ ${bloco.nota || 'Conteúdo ainda não cadastrado.'}</div>
+    </div>`;
+  }
+  const textoHtml = linkify(escapeHtml(bloco.texto));
+  const anexoHtml = bloco.anexo
+    ? `<a class="anexo" href="${bloco.anexo.url}" target="_blank" rel="noopener">${bloco.anexo.label}</a>`
+    : '';
+  return `
+    <div class="bloco">
+      <button class="btn-copiar" onclick="copiarBloco(this)" aria-label="Copiar bloco" title="Copiar texto">${iconeCopiar}</button>
+      <div class="bloco-label">Bloco ${idx + 1}</div>
+      <div class="bloco-texto" data-raw="${encodeURIComponent(bloco.texto)}">${textoHtml}</div>
+      ${anexoHtml}
+    </div>`;
+}
+
+function renderMensagem(msg) {
+  if (msg.placeholder) {
+    return `<div class="msg-card placeholder"><span class="msg-titulo">${msg.titulo} · ainda não cadastrada</span></div>`;
+  }
+  const blocosHtml = msg.blocos.map(renderBloco).join('');
+  const raws = msg.blocos.filter(b => !b.pendente).map(b => b.texto);
+  return `
+    <div class="msg-card">
+      <div class="msg-topo">
+        <span class="msg-titulo">${msg.titulo}</span>
+        ${msg.horario ? `<span class="chip horario">🕐 ${msg.horario}</span>` : ''}
+        <button class="btn-copiar-tudo" onclick="copiarTudo(this)" data-raws='${encodeURIComponent(JSON.stringify(raws))}'>${iconeCopiar} Copiar mensagem completa</button>
+      </div>
+      <div class="blocos">${blocosHtml}</div>
+    </div>`;
+}
+
+function renderCategoria(cat) {
+  if (!cat.mensagens.length) {
+    return `<div class="estado-vazio">Nenhuma mensagem cadastrada ainda em <strong>${cat.label}</strong>.</div>`;
+  }
+  return cat.mensagens.map(renderMensagem).join('');
+}
+
+function montarLancamento(key, lanc) {
+  const categoriasNav = lanc.categorias.map((cat, i) =>
+    `<button class="aba-cat ${i === 0 ? 'ativa' : ''}" data-cat="${cat.key}" onclick="mostrarCategoria('${key}','${cat.key}',this)">${cat.label}</button>`
+  ).join('');
+  const categoriasPaineis = lanc.categorias.map((cat, i) =>
+    `<div class="painel-categoria ${i === 0 ? 'ativo' : ''}" data-cat="${key}-${cat.key}">${renderCategoria(cat)}</div>`
+  ).join('');
+  return `
+    <nav class="abas-categoria">${categoriasNav}</nav>
+    ${categoriasPaineis}`;
+}
+
+function montarPagina() {
+  const abasNav = document.getElementById('abasLancamento');
+  const paineis = document.getElementById('paineisLancamento');
+  const keys = Object.keys(LANCAMENTOS);
+  keys.forEach((key, i) => {
+    const lanc = LANCAMENTOS[key];
+    const aba = document.createElement('button');
+    aba.className = 'aba-lanc' + (i === 0 ? ' ativa' : '');
+    aba.textContent = lanc.label;
+    aba.onclick = () => mostrarLancamento(key, aba);
+    abasNav.appendChild(aba);
+
+    const painel = document.createElement('div');
+    painel.className = 'painel-lancamento' + (i === 0 ? ' ativo' : '');
+    painel.dataset.lanc = key;
+    painel.innerHTML = montarLancamento(key, lanc);
+    paineis.appendChild(painel);
+  });
+}
+
+function mostrarLancamento(key, btn) {
+  document.querySelectorAll('.aba-lanc').forEach(b => b.classList.remove('ativa'));
+  btn.classList.add('ativa');
+  document.querySelectorAll('.painel-lancamento').forEach(p => p.classList.toggle('ativo', p.dataset.lanc === key));
+}
+
+function mostrarCategoria(lancKey, catKey, btn) {
+  const nav = btn.parentElement;
+  nav.querySelectorAll('.aba-cat').forEach(b => b.classList.remove('ativa'));
+  btn.classList.add('ativa');
+  const container = nav.parentElement;
+  container.querySelectorAll('.painel-categoria').forEach(p => {
+    p.classList.toggle('ativo', p.dataset.cat === `${lancKey}-${catKey}`);
+  });
+}
+
+function feedbackCopiado(el) {
+  const original = el.innerHTML;
+  el.classList.add('copiado');
+  el.innerHTML = el.classList.contains('btn-copiar-tudo') ? `${iconeCheck} Copiado!` : iconeCheck;
+  setTimeout(() => { el.classList.remove('copiado'); el.innerHTML = original; }, 1500);
+}
+
+function copiarBloco(btn) {
+  const bloco = btn.closest('.bloco');
+  const texto = decodeURIComponent(bloco.querySelector('.bloco-texto').dataset.raw);
+  copiarParaClipboard(texto, btn);
+}
+
+function copiarTudo(btn) {
+  const raws = JSON.parse(decodeURIComponent(btn.dataset.raws));
+  copiarParaClipboard(raws.join('\n\n'), btn);
+}
+
+function copiarParaClipboard(texto, btn) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(texto).then(() => feedbackCopiado(btn)).catch(() => copiarComFallback(texto, btn));
+  } else {
+    copiarComFallback(texto, btn);
+  }
+}
+
+function copiarComFallback(texto, btn) {
+  const area = document.createElement('textarea');
+  area.value = texto;
+  area.style.position = 'fixed';
+  area.style.opacity = '0';
+  document.body.appendChild(area);
+  area.focus();
+  area.select();
+  try { document.execCommand('copy'); feedbackCopiado(btn); } catch (e) {}
+  document.body.removeChild(area);
+}
+
+montarPagina();
+</script>
+</body>
+</html>
