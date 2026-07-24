@@ -140,13 +140,18 @@ nav.abas-categoria { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4v
   line-height: 1.65; white-space: pre-wrap; padding-right: 42px;
 }
 .bloco .bloco-texto a { color: var(--roxo-dark); word-break: break-all; }
+.bloco .anexos { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
 .bloco .anexo {
-  margin-top: 14px; display: inline-flex; align-items: center; gap: 8px;
+  display: inline-flex; align-items: center; gap: 8px;
   font-size: 12.5px; font-weight: 600; color: var(--roxo-dark);
   background: var(--roxo-xlight); border: 1px solid var(--roxo-light);
   padding: 6px 14px; border-radius: 999px; text-decoration: none;
 }
 .bloco .anexo:hover { background: var(--roxo-light); color: #fff; }
+.bloco .anexo.anexo-pendente {
+  color: var(--cinza); background: var(--bg-soft); border-style: dashed; cursor: default;
+}
+.bloco .anexo.anexo-pendente:hover { background: var(--bg-soft); color: var(--cinza); }
 
 .btn-copiar {
   position: absolute; top: 14px; right: 14px;
@@ -271,7 +276,7 @@ const LANCAMENTOS = {
             blocos: [
               {
                 texto: `Ansioso(a) para o nosso encontro? 🚀\n\nA Imersão Jornada da Autoridade acontece neste final de semana, nos dias 25 e 26 de julho (AMANHÃ), 100% online pelo Zoom.\n\n🕒 Horários da Imersão:\n\n👉 Sábado (25/07): das 09h00 às 16h00\n👉 Domingo (26/07): das 09h00 às 12h00`,
-                anexo: { label: '🖼️ Ver imagem enviada junto', url: 'https://drive.google.com/file/d/11hG2PxMlOhf-tFLhI7Nvd_5wu6_DoHGN/view?usp=drive_link' }
+                anexos: [{ label: '🖼️ Ver imagem enviada junto', url: 'https://drive.google.com/file/d/11hG2PxMlOhf-tFLhI7Nvd_5wu6_DoHGN/view?usp=drive_link' }]
               },
               {
                 texto: `📍 Onde vai rolar?\nA Imersão será pelo Zoom, e o link de acesso será enviado 1 hora antes do início, aqui no grupo de avisos.\n\n🎞️ Vai ter replay?\nSim! Mas o replay é uma entrega à parte e não está incluso no ingresso do evento ao vivo.\n\nQuem quiser garantir acesso às gravações poderá adquirir o replay por R$97,00.\n\nhttps://pay.zouti.com.br/checkout?product_offer_id=prod_offer_mcmanegurm4ljk3vlz0564`
@@ -314,7 +319,7 @@ const LANCAMENTOS = {
             blocos: [
               {
                 texto: `🚨 Começouuu!\n\nA Imersão Jornada da Autoridade já está ao vivo! 💫\n\nEstamos abrindo o evento com um conteúdo poderoso sobre como estruturar e lucrar com eventos Pocket, mesmo começando do zero.`,
-                anexo: { label: '🖼️ Ver imagem enviada junto', url: 'https://drive.google.com/file/d/1zaXEN-lktSHkAuvnG5TDFaoaQU7VDddD/view?usp=drive_link' }
+                anexos: [{ label: '🖼️ Ver imagem enviada junto', url: 'https://drive.google.com/file/d/1zaXEN-lktSHkAuvnG5TDFaoaQU7VDddD/view?usp=drive_link' }]
               },
               {
                 texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
@@ -340,7 +345,7 @@ const LANCAMENTOS = {
             blocos: [
               {
                 texto: `Ei, você tá aí? 👀\n\nA Imersão tá pegando fogo 🔥\n\nAgora estamos falando sobre Posicionamento Estratégico, o segredo para alinhar sua oferta, comunicação e presença no palco para vender mais.`,
-                anexo: { label: '🖼️ Ver slide de referência (envie quando ele aparecer)', url: 'https://drive.google.com/file/d/1nIqbCa3_UHJ1672rc1xfdm6-j95kkh6r/view?usp=drive_link' }
+                anexos: [{ label: '🖼️ Ver slide de referência (envie quando ele aparecer)', url: 'https://drive.google.com/file/d/1nIqbCa3_UHJ1672rc1xfdm6-j95kkh6r/view?usp=drive_link' }]
               },
               {
                 texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
@@ -375,8 +380,7 @@ const LANCAMENTOS = {
             horario: 'Quando aparecer o slide com QR Code do grupo de pré-venda',
             blocos: [
               {
-                texto: `https://chat.whatsapp.com/CBAabGCQGjI9bOlE92sNPT?s=cl&p=i&mlu=4`,
-                instrucao: 'Contexto: a Tamara anuncia bônus exclusivos (mais de R$50.000 em valor) por ordem de compra e chama para entrar no grupo de pré-venda antes de mostrar o QR Code. Envie o link assim que o slide aparecer.'
+                texto: `🎁 São vários bônus exclusivos — e cada um é por ordem de compra!\n\nQuem chegar primeiro garante bônus incríveis que juntos valem mais de R$50.000.\n\nQuer sair na frente? Entra agora no grupo de pré-venda 👇\n\nhttps://chat.whatsapp.com/CBAabGCQGjI9bOlE92sNPT?s=cl&p=i&mlu=4`
               }
             ]
           },
@@ -385,13 +389,38 @@ const LANCAMENTOS = {
             gatilho: true,
             horario: 'Ainda no Dia 1 (25/07), após o link do grupo de pré-venda',
             blocos: [
-              { texto: `Ainda teremos a oferta hoje! 👀` }
+              {
+                texto: `🚀 Hoje teremos uma oferta super especial para a mentoria AIM Start!\n\nÉ a mentoria onde te entrego tudo que você precisa para se tornar uma autoridade e dominar os palcos nos próximos 30 dias.\n\n🎁 E não para por aí: teremos vários bônus, cada um por ordem de compra — juntos, eles valem mais de R$30.000 em bônus grátis.\n\nFica ligada! 👀`
+              }
             ]
           },
           {
             titulo: 'Mensagem 9 — Oferta AIM Start',
-            placeholder: true,
-            nota: 'Mensagem da oferta — aguardando o conteúdo final dos slides e a imagem. Deve ter de 3 a 4 blocos (bastante informação: formas de pagamento, o que está incluso, bônus por ordem de chegada) + a imagem da oferta + a frase de fechamento "Vocês nasceram para serem grandes autoridades."'
+            gatilho: true,
+            horario: 'Após o conteúdo da tarde, na hora da oferta',
+            blocos: [
+              {
+                texto: `🚨 Estão abertas as inscrições para o programa de mentoria AIM Start!\n\nO programa de aceleração onde você estrutura posicionamento, oferta, autoridade e o movimento de crescimento do seu negócio.`,
+                anexos: [{ label: '🖼️ Ver imagem da oferta (enviar junto)', url: 'https://drive.google.com/open?id=1lk5w64r1JnCpjDVRJNDP83p1baI-EVkB&usp=drive_copy' }]
+              },
+              {
+                texto: `🔥 Somente hoje: R$4.000 de desconto!\n\nDe R$12.000,00 por R$8.000,00.\n\n💳 No cartão: 12x de R$822,53 ou R$8.000,00 à vista no pix\n📄 No boleto: 1+11x de R$1.000,00`
+              },
+              {
+                texto: `✨ Só na modalidade do cartão você também leva:\n\n✅ 1 call individual com a Tamara\n✅ Palco para palestrar em um evento da Tamara em 2027`
+              },
+              {
+                texto: `🎁 E ainda tem bônus por ordem de compra:\n\n🗂️ 20 primeiras pessoas: Trello com os mapas (R$3.997)\n🧪 10 primeiras: Laboratório de Análise — pitch e slide (R$997)\n🏡 10 primeiras: Mansão em Florianópolis (R$5.000)`,
+                anexos: [{ label: '🖼️ Ver imagem dos bônus (enviar junto)', url: 'https://drive.google.com/open?id=1BktrmKX5I30nmxEfrKlNA-trtxyGS4Lr&usp=drive_copy' }]
+              },
+              {
+                texto: `🎤 2 primeiras pessoas: Palco pra palestrar (R$5.000)\n🔑 1ª pessoa: acesso ao Clube AIM (R$30k)\n\n💎 Bônus especiais pra todo mundo: Análise de posicionamento no Instagram + Grupo fechado exclusivo com a Tamara`,
+                anexos: [{ label: '🖼️ Ver imagem da estrutura do programa (enviar junto)', url: 'https://drive.google.com/open?id=1nc4YcN2hOGcTJTjE-wGtOwV1eT7lyICS&usp=drive_copy' }]
+              },
+              {
+                texto: `👉 Bora garantir sua vaga e todos os bônus?\n\nClique no link abaixo e comece agora:\n\nhttps://aimhouse.com.br/ofertastart/\n\nVocês nasceram para serem grandes autoridades. 👑`
+              }
+            ]
           }
         ]
       },
@@ -428,16 +457,18 @@ function renderBloco(bloco, idx) {
   } else {
     textoHtml = linkify(escapeHtml(bloco.texto));
   }
-  const anexoHtml = bloco.anexo
-    ? `<a class="anexo" href="${bloco.anexo.url}" target="_blank" rel="noopener">${bloco.anexo.label}</a>`
-    : '';
+  const anexosHtml = (bloco.anexos || []).map(anexo =>
+    anexo.pendente
+      ? `<span class="anexo anexo-pendente">⏳ ${anexo.label}</span>`
+      : `<a class="anexo" href="${anexo.url}" target="_blank" rel="noopener">${anexo.label}</a>`
+  ).join('');
   const instrucaoHtml = bloco.instrucao ? `<div class="bloco-instrucao">ℹ️ ${bloco.instrucao}</div>` : '';
   return `
     <div class="bloco">
       <button class="btn-copiar" onclick="copiarBloco(this)" aria-label="Copiar bloco" title="Copiar texto">${iconeCopiar}</button>
       <div class="bloco-label">Bloco ${idx + 1}</div>
       <div class="bloco-texto" data-raw="${encodeURIComponent(bloco.texto)}">${textoHtml}</div>
-      ${anexoHtml}
+      ${anexosHtml ? `<div class="anexos">${anexosHtml}</div>` : ''}
       ${instrucaoHtml}
     </div>`;
 }
