@@ -8,74 +8,99 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg: #0A0A0F;
-  --bg2: #121218;
-  --bg3: #1A1A22;
-  --roxo: #A855F7;
-  --roxo-escuro: #7C3AED;
-  --roxo-suave: rgba(168, 85, 247, 0.12);
-  --branco: #FFFFFF;
-  --cinza: #B8B8C4;
-  --cinza-escuro: #7A7A88;
-  --borda: rgba(168, 85, 247, 0.25);
-  --verde: #34D399;
+:root{
+  --roxo:        #7C3AED;
+  --roxo-dark:   #5B21B6;
+  --roxo-deep:   #3B0F73;
+  --roxo-light:  #A78BFA;
+  --roxo-xlight: #EDE9FE;
+  --preto:   #0A0A0A;
+  --ink:     #141018;
+  --cinza:   #5B5566;
+  --linha:   #E7E3EE;
+  --bg:      #FFFFFF;
+  --bg-soft: #FAF9FC;
+  --verde:   #15803D;
 }
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html, body { min-height: 100%; background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--branco); }
-body { padding: 5vh 6vw 8vh; }
+html, body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--ink); }
 
-header.topo { max-width: 1100px; margin: 0 auto 4vh; }
-.tag {
-  display: inline-block;
-  background: var(--roxo-suave);
-  border: 1px solid var(--borda);
-  color: var(--roxo);
-  font-size: clamp(11px, 1.3vw, 13px);
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  padding: 6px 16px;
-  border-radius: 999px;
-  margin-bottom: 2vh;
-  width: fit-content;
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+    linear-gradient(150deg, #0A0A0A 0%, #17111F 45%, #3B0F73 100%);
+  padding: 6vh 28px 7vh;
 }
-h1 { font-size: clamp(26px, 4vw, 44px); font-weight: 800; line-height: 1.15; margin-bottom: 1vh; }
-h1 .roxo { color: var(--roxo); }
-p.sub { font-size: clamp(14px, 1.6vw, 17px); color: var(--cinza); font-weight: 300; max-width: 700px; }
-
-.wrap { max-width: 1100px; margin: 0 auto; }
-
-/* --- abas de lançamento --- */
-nav.abas-lancamento {
-  display: flex; flex-wrap: wrap; gap: 10px;
-  margin-bottom: 3vh; border-bottom: 1px solid var(--borda); padding-bottom: 2.2vh;
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  pointer-events: none;
 }
-.aba-lanc {
-  background: var(--bg2);
-  border: 1px solid var(--borda);
-  color: var(--cinza);
-  font-family: inherit; font-size: 14px; font-weight: 600;
-  padding: 10px 22px; border-radius: 999px;
-  cursor: pointer; transition: all .15s;
-}
-.aba-lanc:hover { color: var(--branco); border-color: var(--roxo); }
-.aba-lanc.ativa { background: var(--roxo); color: var(--branco); border-color: var(--roxo); }
-.aba-lanc.em-breve { opacity: .4; cursor: not-allowed; }
-.aba-lanc.em-breve:hover { color: var(--cinza); border-color: var(--borda); }
+.hero-conteudo { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
 
-/* --- categorias dentro do lançamento (onboard / dia 1 / dia 2) --- */
-nav.abas-categoria { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 3.5vh; }
-.aba-cat {
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand svg { width: 34px; height: 34px; flex-shrink: 0; }
+.brand .word { display: flex; align-items: center; gap: 10px; font-weight: 300; color: #fff; }
+.brand .word b { font-weight: 800; font-size: 16px; }
+.brand .word .bar { width: 2px; height: 22px; background: rgba(255,255,255,.55); }
+.brand .word span { font-size: 16px; letter-spacing: .22em; }
+
+.pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid var(--roxo-light); color: var(--roxo-light);
+  border-radius: 100px; padding: 8px 18px;
+  font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
   background: transparent;
-  border: 1px solid var(--borda);
-  color: var(--cinza);
-  font-family: inherit; font-size: 13px; font-weight: 500;
-  padding: 8px 18px; border-radius: 10px;
-  cursor: pointer; transition: all .15s;
 }
-.aba-cat:hover { color: var(--branco); }
-.aba-cat.ativa { background: var(--roxo-suave); color: var(--roxo); border-color: var(--roxo); font-weight: 600; }
+.pill.solid { background: linear-gradient(90deg, var(--roxo), var(--roxo-dark)); color: #fff; border-color: transparent; }
+
+h1 { font-weight: 800; font-size: clamp(32px, 4.4vw, 52px); letter-spacing: -.02em; line-height: 1.15; color: #fff; }
+h1 .destaque { color: var(--roxo-light); }
+p.hero-sub { font-size: clamp(15px, 1.6vw, 17px); font-weight: 300; color: rgba(255,255,255,.72); max-width: 640px; line-height: 1.6; }
+
+.hero-tag { margin: 3.2vh 0 2vh; }
+
+/* ===== SEÇÃO / LAYOUT ===== */
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+main { padding: 6vh 0 8vh; }
+
+.section-label {
+  display: flex; align-items: center; gap: 12px;
+  font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--roxo); margin-bottom: 2.4vh;
+}
+.section-label::before { content: ''; width: 34px; height: 2px; background: var(--roxo); border-radius: 2px; }
+
+/* ===== PÍLULAS DE NAVEGAÇÃO ===== */
+nav.abas-lancamento { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5vh; padding-bottom: 4vh; border-bottom: 1px solid var(--linha); }
+.aba-lanc {
+  font-family: inherit; cursor: pointer;
+  border: 1px solid var(--roxo-light); color: var(--roxo-dark);
+  background: transparent; border-radius: 100px; padding: 10px 22px;
+  font-size: 13px; font-weight: 600; letter-spacing: .06em;
+  transition: all .15s;
+}
+.aba-lanc:hover { background: var(--roxo-xlight); }
+.aba-lanc.ativa { background: linear-gradient(90deg, var(--roxo), var(--roxo-dark)); color: #fff; border-color: transparent; }
+
+nav.abas-categoria { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4vh; }
+.aba-cat {
+  font-family: inherit; cursor: pointer;
+  border: 1px solid var(--linha); color: var(--cinza);
+  background: var(--bg-soft); border-radius: 10px; padding: 9px 18px;
+  font-size: 13px; font-weight: 500; transition: all .15s;
+}
+.aba-cat:hover { color: var(--ink); border-color: var(--roxo-light); }
+.aba-cat.ativa { background: var(--roxo-xlight); color: var(--roxo-dark); border-color: var(--roxo-light); font-weight: 600; }
 
 .painel-lancamento { display: none; }
 .painel-lancamento.ativo { display: block; animation: fadein .3s ease; }
@@ -83,94 +108,98 @@ nav.abas-categoria { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 3.
 .painel-categoria.ativo { display: block; animation: fadein .3s ease; }
 @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 
-/* --- card de mensagem --- */
+/* ===== CARD DE MENSAGEM ===== */
 .msg-card {
-  background: var(--bg2);
-  border: 1px solid var(--borda);
+  background: var(--bg-soft);
+  border: 1px solid var(--linha);
   border-radius: 18px;
-  padding: 2.2vh 1.8vw;
-  margin-bottom: 2.4vh;
+  padding: 26px 28px;
+  margin-bottom: 22px;
 }
-.msg-topo {
-  display: flex; align-items: center; flex-wrap: wrap; gap: 10px;
-  margin-bottom: 1.8vh;
-}
-.msg-titulo { font-size: clamp(16px, 1.9vw, 20px); font-weight: 700; }
+.msg-topo { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.msg-titulo { font-size: 18px; font-weight: 700; color: var(--ink); }
 .chip {
-  font-size: 12px; font-weight: 500; color: var(--cinza);
-  background: var(--bg3); border: 1px solid var(--borda);
-  padding: 5px 12px; border-radius: 999px;
-  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; color: var(--roxo-dark);
+  background: var(--roxo-xlight); border: 1px solid var(--roxo-light);
+  padding: 5px 14px; border-radius: 999px;
 }
-.chip.horario { color: var(--roxo); }
 .btn-copiar-tudo {
   margin-left: auto;
-  background: none; border: 1px solid var(--borda); color: var(--cinza);
+  background: #fff; border: 1px solid var(--roxo-light); color: var(--roxo-dark);
   font-family: inherit; font-size: 12px; font-weight: 600;
-  padding: 6px 14px; border-radius: 8px; cursor: pointer;
-  display: flex; align-items: center; gap: 6px; transition: all .15s;
+  padding: 8px 16px; border-radius: 10px; cursor: pointer;
+  display: flex; align-items: center; gap: 7px; transition: all .15s;
 }
-.btn-copiar-tudo:hover { color: var(--roxo); border-color: var(--roxo); }
-.btn-copiar-tudo.copiado { color: var(--verde); border-color: var(--verde); }
+.btn-copiar-tudo:hover { background: var(--roxo-xlight); }
+.btn-copiar-tudo.copiado { color: var(--verde); border-color: var(--verde); background: #F0FDF4; }
 .btn-copiar-tudo svg { width: 13px; height: 13px; flex-shrink: 0; }
 
 .blocos { display: flex; flex-direction: column; gap: 14px; }
 .bloco {
   position: relative;
-  background: var(--bg3);
-  border: 1px solid var(--borda);
+  background: #fff;
+  border: 1px solid var(--linha);
   border-radius: 14px;
-  padding: 1.8vh 1.6vw 1.6vh;
+  padding: 18px 20px 16px;
 }
 .bloco .bloco-label {
   font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
-  color: var(--cinza-escuro); margin-bottom: 1vh;
+  color: var(--roxo); margin-bottom: 10px;
 }
 .bloco .bloco-texto {
-  font-size: clamp(13.5px, 1.5vw, 15.5px); font-weight: 300; color: var(--branco);
-  line-height: 1.6; white-space: pre-wrap; padding-right: 42px;
+  font-size: 15px; font-weight: 300; color: var(--ink);
+  line-height: 1.65; white-space: pre-wrap; padding-right: 42px;
 }
-.bloco .bloco-texto a { color: var(--roxo); word-break: break-all; }
+.bloco .bloco-texto a { color: var(--roxo-dark); word-break: break-all; }
 .bloco .anexo {
-  margin-top: 1.4vh; display: inline-flex; align-items: center; gap: 8px;
-  font-size: 12.5px; font-weight: 500; color: var(--roxo);
-  background: var(--roxo-suave); border: 1px solid var(--borda);
+  margin-top: 14px; display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12.5px; font-weight: 600; color: var(--roxo-dark);
+  background: var(--roxo-xlight); border: 1px solid var(--roxo-light);
   padding: 6px 14px; border-radius: 999px; text-decoration: none;
 }
-.bloco .anexo:hover { background: var(--roxo); color: var(--branco); }
-
-.bloco.bloco-pendente { border-style: dashed; }
-.bloco-nota { font-size: 13px; font-weight: 300; color: var(--cinza-escuro); font-style: italic; }
+.bloco .anexo:hover { background: var(--roxo-light); color: #fff; }
 
 .btn-copiar {
   position: absolute; top: 14px; right: 14px;
   width: 30px; height: 30px; border-radius: 8px;
-  background: var(--bg2); border: 1px solid var(--borda);
-  color: var(--cinza); cursor: pointer;
+  background: #fff; border: 1px solid var(--roxo-light);
+  color: var(--roxo); cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   transition: all .15s;
 }
-.btn-copiar:hover { border-color: var(--roxo); color: var(--roxo); }
-.btn-copiar.copiado { border-color: var(--verde); color: var(--verde); }
+.btn-copiar:hover { background: var(--roxo); color: #fff; }
+.btn-copiar.copiado { border-color: var(--verde); color: var(--verde); background: #F0FDF4; }
 .btn-copiar svg { width: 15px; height: 15px; }
 
-/* --- placeholder (mensagem ainda não cadastrada) --- */
+.bloco.bloco-pendente { border-style: dashed; background: var(--bg-soft); }
+.bloco-nota { font-size: 13px; font-weight: 300; color: var(--cinza); font-style: italic; }
+
 .msg-card.placeholder {
-  border-style: dashed;
-  opacity: .55;
+  border-style: dashed; background: transparent;
   display: flex; align-items: center; justify-content: center;
-  padding: 2.6vh 1.8vw; min-height: 70px;
+  padding: 22px 28px; min-height: 60px;
 }
-.msg-card.placeholder .msg-titulo { font-size: 14px; font-weight: 500; color: var(--cinza-escuro); }
+.msg-card.placeholder .msg-titulo { font-size: 14px; font-weight: 500; color: var(--cinza); }
 
 .estado-vazio {
-  border: 1px dashed var(--borda); border-radius: 18px;
-  padding: 5vh 2vw; text-align: center; color: var(--cinza-escuro);
-  font-size: 14px; font-weight: 300;
+  border: 1px dashed var(--linha); border-radius: 18px;
+  padding: 5vh 2vw; text-align: center; color: var(--cinza);
+  font-size: 14px; font-weight: 300; background: var(--bg-soft);
 }
 
+/* ===== FOOTER ===== */
+footer.rodape {
+  background: var(--ink);
+  padding: 5vh 28px;
+  display: flex; flex-direction: column; align-items: center; gap: 14px;
+  text-align: center;
+}
+footer.rodape .brand .word { color: #fff; }
+footer.rodape p { font-size: 12.5px; color: rgba(255,255,255,.55); font-weight: 300; }
+
 @media (max-width: 760px) {
-  body { padding: 4vh 6vw 10vh; }
+  .hero { padding: 5vh 20px 6vh; }
+  .wrap { padding: 0 20px; }
   .msg-topo { flex-direction: column; align-items: flex-start; }
   .btn-copiar-tudo { margin-left: 0; }
 }
@@ -178,16 +207,51 @@ nav.abas-categoria { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 3.
 </head>
 <body>
 
-<header class="topo">
-  <span class="tag">Tamara Damares · Brito Mídias</span>
-  <h1>Mensagens dos <span class="roxo">Lançamentos</span></h1>
-  <p class="sub">Catálogo de mensagens prontas para envio no grupo do WhatsApp — organizadas por lançamento. Clique no ícone de cópia em cada bloco para copiar o texto.</p>
-</header>
-
-<div class="wrap">
-  <nav class="abas-lancamento" id="abasLancamento"></nav>
-  <div id="paineisLancamento"></div>
+<div class="hero">
+  <div class="hero-conteudo">
+    <div class="brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+           stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+        <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+        <polygon points="50,33 65,59 35,59"></polygon>
+        <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+        <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+        <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+        <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+        <line x1="10" y1="27" x2="50" y2="33"></line>
+      </svg>
+      <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+    </div>
+    <div class="pill solid hero-tag">Tamara Damares</div>
+    <h1>Mensagens dos <span class="destaque">Lançamentos</span></h1>
+    <p class="hero-sub">Catálogo de mensagens prontas para envio no grupo do WhatsApp — organizadas por lançamento. Clique no ícone de cópia em cada bloco para copiar o texto.</p>
+  </div>
 </div>
+
+<main>
+  <div class="wrap">
+    <div class="section-label">Selecione o lançamento</div>
+    <nav class="abas-lancamento" id="abasLancamento"></nav>
+    <div id="paineisLancamento"></div>
+  </div>
+</main>
+
+<footer class="rodape">
+  <div class="brand">
+    <svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+         stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+      <polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+      <polygon points="50,33 65,59 35,59"></polygon>
+      <line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+      <line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+      <line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+      <line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+      <line x1="10" y1="27" x2="50" y2="33"></line>
+    </svg>
+    <span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+  </div>
+  <p>rafael@britomidias.com.br</p>
+</footer>
 
 <script>
 const LANCAMENTOS = {
@@ -310,7 +374,7 @@ function renderMensagem(msg) {
     <div class="msg-card">
       <div class="msg-topo">
         <span class="msg-titulo">${msg.titulo}</span>
-        ${msg.horario ? `<span class="chip horario">🕐 ${msg.horario}</span>` : ''}
+        ${msg.horario ? `<span class="chip">🕐 ${msg.horario}</span>` : ''}
         <button class="btn-copiar-tudo" onclick="copiarTudo(this)" data-raws='${encodeURIComponent(JSON.stringify(raws))}'>${iconeCopiar} Copiar mensagem completa</button>
       </div>
       <div class="blocos">${blocosHtml}</div>
