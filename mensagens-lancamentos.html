@@ -430,7 +430,22 @@ const LANCAMENTOS = {
           }
         ]
       },
-      { key: 'dia2', label: 'Dia 2 (26/07)', mensagens: [] }
+      {
+        key: 'dia2',
+        label: 'Dia 2 (26/07)',
+        mensagens: [
+          {
+            titulo: 'Mensagem 1 — Últimas horas do replay',
+            gatilho: true,
+            horario: 'Poucas horas antes do replay sair do ar (fechamento da Jornada)',
+            blocos: [
+              {
+                texto: `⏳ Você só tem mais algumas horas para garantir o acesso à gravação desta edição da Imersão Jornada da Autoridade.\n\nDepois desse prazo, o replay sai do ar.\n\n🎥 Garanta a sua gravação agora 👇\n\nhttps://pay.zouti.com.br/checkout?product_offer_id=prod_offer_mcmanegurm4ljk3vlz0564`
+              }
+            ]
+          }
+        ]
+      }
     ]
   }
 };
