@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mensagens dos Lançamentos — Tamara Damares</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--roxo: #7C3AED;
+--roxo-dark: #5B21B6;
+--roxo-deep: #3B0F73;
+--roxo-light: #A78BFA;
+--roxo-xlight: #EDE9FE;
+--preto: #0A0A0A;
+--ink: #141018;
+--cinza: #5B5566;
+--linha: #E7E3EE;
+--bg: #FFFFFF;
+--bg-soft: #FAF9FC;
+--verde: #15803D;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--ink); }
+
+.hero {
+position: relative;
+overflow: hidden;
+background:
+radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+linear-gradient(150deg, #0A0A0A 0%, #17111F 45%, #3B0F73 100%);
+padding: 6vh 28px 7vh;
+}
+.hero::before {
+content: '';
+position: absolute; inset: 0;
+background-image:
+linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px);
+background-size: 44px 44px;
+-webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+pointer-events: none;
+}
+.hero-conteudo { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand svg { width: 34px; height: 34px; flex-shrink: 0; }
+.brand .word { display: flex; align-items: center; gap: 10px; font-weight: 300; color: #fff; }
+.brand .word b { font-weight: 800; font-size: 16px; }
+.brand .word .bar { width: 2px; height: 22px; background: rgba(255,255,255,.55); }
+.brand .word span { font-size: 16px; letter-spacing: .22em; }
+
+.pill {
+display: inline-flex; align-items: center; gap: 8px;
+border: 1px solid var(--roxo-light); color: var(--roxo-light);
+border-radius: 100px; padding: 8px 18px;
+font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+background: transparent;
+}
+.pill.solid { background: linear-gradient(90deg, var(--roxo), var(--roxo-dark)); color: #fff; border-color: transparent; }
+
+h1 { font-weight: 800; font-size: clamp(32px, 4.4vw, 52px); letter-spacing: -.02em; line-height: 1.15; color: #fff; }
+h1 .destaque { color: var(--roxo-light); }
+p.hero-sub { font-size: clamp(15px, 1.6vw, 17px); font-weight: 300; color: rgba(255,255,255,.72); max-width: 640px; line-height: 1.6; }
+
+.hero-tag { margin: 3.2vh 0 2vh; }
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+main { padding: 6vh 0 8vh; }
+
+.section-label {
+display: flex; align-items: center; gap: 12px;
+font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+color: var(--roxo); margin-bottom: 2.4vh;
+}
+.section-label::before { content: ''; width: 34px; height: 2px; background: var(--roxo); border-radius: 2px; }
+
+nav.abas-lancamento { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5vh; padding-bottom: 4vh; border-bottom: 1px solid var(--linha); }
+.aba-lanc {
+font-family: inherit; cursor: pointer;
+border: 1px solid var(--roxo-light); color: var(--roxo-dark);
+background: transparent; border-radius: 100px; padding: 10px 22px;
+font-size: 13px; font-weight: 600; letter-spacing: .06em;
+transition: all .15s;
+}
+.aba-lanc:hover { background: var(--roxo-xlight); }
+.aba-lanc.ativa { background: linear-gradient(90deg, var(--roxo), var(--roxo-dark)); color: #fff; border-color: transparent; }
+
+nav.abas-categoria { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4vh; }
+.aba-cat {
+font-family: inherit; cursor: pointer;
+border: 1px solid var(--linha); color: var(--cinza);
+background: var(--bg-soft); border-radius: 10px; padding: 9px 18px;
+font-size: 13px; font-weight: 500; transition: all .15s;
+}
+.aba-cat:hover { color: var(--ink); border-color: var(--roxo-light); }
+.aba-cat.ativa { background: var(--roxo-xlight); color: var(--roxo-dark); border-color: var(--roxo-light); font-weight: 600; }
+
+.painel-lancamento { display: none; }
+.painel-lancamento.ativo { display: block; animation: fadein .3s ease; }
+.painel-categoria { display: none; }
+.painel-categoria.ativo { display: block; animation: fadein .3s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.msg-card {
+background: var(--bg-soft);
+border: 1px solid var(--linha);
+border-radius: 18px;
+padding: 26px 28px;
+margin-bottom: 22px;
+}
+.msg-topo { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.msg-titulo { font-size: 18px; font-weight: 700; color: var(--ink); }
+.chip {
+font-size: 12px; font-weight: 600; color: var(--roxo-dark);
+background: var(--roxo-xlight); border: 1px solid var(--roxo-light);
+padding: 5px 14px; border-radius: 999px;
+}
+.blocos { display: flex; flex-direction: column; gap: 14px; }
+.bloco {
+position: relative;
+background: #fff;
+border: 1px solid var(--linha);
+border-radius: 14px;
+padding: 18px 20px 16px;
+}
+.bloco .bloco-label {
+font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+color: var(--roxo); margin-bottom: 10px;
+}
+.bloco .bloco-texto {
+font-size: 15px; font-weight: 300; color: var(--ink);
+line-height: 1.65; white-space: pre-wrap; padding-right: 42px;
+}
+.bloco .bloco-texto a { color: var(--roxo-dark); word-break: break-all; }
+.bloco .anexos { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+.bloco .anexo {
+display: inline-flex; align-items: center; gap: 8px;
+font-size: 12.5px; font-weight: 600; color: var(--roxo-dark);
+background: var(--roxo-xlight); border: 1px solid var(--roxo-light);
+padding: 6px 14px; border-radius: 999px; text-decoration: none;
+}
+.bloco .anexo:hover { background: var(--roxo-light); color: #fff; }
+.bloco .anexo.anexo-pendente {
+color: var(--cinza); background: var(--bg-soft); border-style: dashed; cursor: default;
+}
+.bloco .anexo.anexo-pendente:hover { background: var(--bg-soft); color: var(--cinza); }
+
+.btn-copiar {
+position: absolute; top: 14px; right: 14px;
+width: 30px; height: 30px; border-radius: 8px;
+background: #fff; border: 1px solid var(--roxo-light);
+color: var(--roxo); cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+transition: all .15s;
+}
+.btn-copiar:hover { background: var(--roxo); color: #fff; }
+.btn-copiar.copiado { border-color: var(--verde); color: var(--verde); background: #F0FDF4; }
+.btn-copiar svg { width: 15px; height: 15px; }
+
+.bloco.bloco-pendente { border-style: dashed; background: var(--bg-soft); }
+.bloco-nota { font-size: 13px; font-weight: 300; color: var(--cinza); font-style: italic; }
+
+.campo-editavel {
+font-family: inherit; font-size: inherit; font-weight: 600; color: var(--roxo-dark);
+border: none; border-bottom: 2px dashed var(--roxo-light); background: var(--roxo-xlight);
+padding: 1px 6px; border-radius: 4px; width: 76px; text-align: center;
+}
+.campo-editavel:focus { outline: none; border-bottom-style: solid; }
+
+.bloco-instrucao {
+margin-top: 12px; font-size: 12.5px; font-weight: 300; color: var(--cinza);
+font-style: italic; line-height: 1.5;
+}
+
+.msg-card.placeholder {
+border-style: dashed; background: transparent;
+padding: 22px 28px;
+}
+.msg-card.placeholder .msg-titulo { font-size: 14px; font-weight: 500; color: var(--cinza); }
+.placeholder-nota {
+margin-top: 8px; font-size: 13px; font-weight: 300; color: var(--cinza);
+max-width: 760px; line-height: 1.55;
+}
+
+.estado-vazio {
+border: 1px dashed var(--linha); border-radius: 18px;
+padding: 5vh 2vw; text-align: center; color: var(--cinza);
+font-size: 14px; font-weight: 300; background: var(--bg-soft);
+}
+
+footer.rodape {
+background: var(--ink);
+padding: 5vh 28px;
+display: flex; flex-direction: column; align-items: center; gap: 14px;
+text-align: center;
+}
+footer.rodape .brand .word { color: #fff; }
+footer.rodape p { font-size: 12.5px; color: rgba(255,255,255,.55); font-weight: 300; }
+
+@media (max-width: 760px) {
+.hero { padding: 5vh 20px 6vh; }
+.wrap { padding: 0 20px; }
+.msg-topo { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+<div class="hero-conteudo">
+<div class="brand">
+<svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+<polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+<polygon points="50,33 65,59 35,59"></polygon>
+<line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+<line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+<line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+<line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+<line x1="10" y1="27" x2="50" y2="33"></line>
+</svg>
+<span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+</div>
+<div class="pill solid hero-tag">Tamara Damares</div>
+<h1>Mensagens dos <span class="destaque">Lançamentos</span></h1>
+<p class="hero-sub">Catálogo de mensagens prontas para envio no grupo do WhatsApp — organizadas por lançamento. Clique no ícone de cópia em cada bloco para copiar o texto.</p>
+</div>
+</div>
+
+<main>
+<div class="wrap">
+<div class="section-label">Selecione o lançamento</div>
+<nav class="abas-lancamento" id="abasLancamento"></nav>
+<div id="paineisLancamento"></div>
+</div>
+</main>
+
+<footer class="rodape">
+<div class="brand">
+<svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+<polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+<polygon points="50,33 65,59 35,59"></polygon>
+<line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+<line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+<line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+<line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+<line x1="10" y1="27" x2="50" y2="33"></line>
+</svg>
+<span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+</div>
+<p>rafael@britomidias.com.br</p>
+</footer>
+
+<script>
+const LANCAMENTOS = {
+tp10: {
+label: 'TP10',
+categorias: [
+{
+key: 'onboard',
+label: 'Onboard (pré-evento)',
+mensagens: [
+{
+titulo: 'Mensagem 1',
+horario: 'Envio: hoje, 16/08 às 18:00',
+blocos: [
+{
+texto: `Ansioso(a) para o nosso encontro? 🚀\n\nA Imersão Jornada da Autoridade acontece nos dias 17 e 18 de agosto (AMANHÃ), 100% online pelo Zoom.\n\n🕒 Horários da Imersão:\n\n👉 17/08: das 18h00 às 22h00\n👉 18/08: das 18h00 às 22h00`,
+anexos: [{ label: '🖼️ Ver imagem enviada junto', url: 'https://drive.google.com/file/d/11hG2PxMlOhf-tFLhI7Nvd_5wu6_DoHGN/view?usp=drive_link' }]
+},
+{
+texto: `📍 Onde vai rolar?\nA Imersão será pelo Zoom, e o link de acesso será enviado 1 hora antes do início, aqui no grupo de avisos.\n\n🎞️ Vai ter replay?\nSim! Mas o replay é uma entrega à parte e não está incluso no ingresso do evento ao vivo.\n\nQuem quiser garantir acesso às gravações poderá adquirir o replay por R$97,00.\n\nhttps://pay.zouti.com.br/checkout?product_offer_id=prod_offer_mcmanegurm4ljk3vlz0564`
+}
+]
+},
+{
+titulo: 'Mensagem 2',
+horario: 'Envio: hoje, 16/08 às 18:10',
+blocos: [
+{
+texto: `Olá, maravilhosas !\n\nPara que a sua experiência na imersão seja ainda mais direcionada, criamos um formulário rápido para entender o seu momento atual, seu negócio, seus desafios e suas expectativas.\n\nResponda com sinceridade, porque essas informações vão nos ajudar a conduzir uma imersão mais estratégica, profunda e transformadora para você.\n\nLink do formulário:\nhttps://forms.gle/n1cd5hNSBnkJcbbBA\n\nTe espero preparada para viver uma virada!`
+}
+]
+}
+]
+},
+{
+key: 'dia1',
+label: 'Dia 1 (17/08)',
+mensagens: [
+{
+titulo: 'Mensagem 1',
+horario: 'Envio: 17/08 às 17:00',
+blocos: [
+{
+texto: `Boa tarde! 🤎🤎\n\nHoje é o grande dia da Imersão Jornada da Autoridade!\n\nA gente começa em 1 h, então aproveita pra se organizar:\n\nPega seu caderninho, encontra um cantinho tranquilo e se prepara pra mergulhar em muito conteúdo prático.`
+},
+{
+texto: `Algumas diquinhas pra aproveitar melhor o dia: \n\n✅ Tenha um caderno e uma caneta à mão pra anotar os insights.\n✅ Participe, faça perguntas e interaja com o grupo.\n✅ E claro, aproveite para fazer networking com outras participantes!\n\nVai ser intenso e transformador.\n\n🚀 O palco está te esperando!`
+},
+{
+texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+}
+]
+},
+{
+titulo: 'Mensagem 2',
+horario: 'Envio: 17/08 às 18:00',
+blocos: [
+{
+texto: `🚨 Começouuu!\n\nA Imersão Jornada da Autoridade já está ao vivo! 💫\n\nEstamos abrindo o evento com um conteúdo poderoso sobre como estruturar e lucrar com eventos Pocket, mesmo começando do zero.`,
+anexos: [{ label: '🖼️ Ver imagem enviada junto', url: 'https://drive.google.com/file/d/1zaXEN-lktSHkAuvnG5TDFaoaQU7VDddD/view?usp=drive_link' }]
+},
+{
+texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+}
+]
+},
+{
+titulo: 'Mensagem 3',
+horario: 'Envio: 17/08 às 18:15',
+blocos: [
+{
+texto: `🚨 Estamos ao vivo!\n\nA Imersão Jornada da Autoridade já está ao vivo! 💫\n\nEstamos abrindo o evento com um conteúdo poderoso sobre como estruturar e lucrar com eventos Pocket, mesmo começando do zero.`
+},
+{
+texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+}
+]
+},
+{
+titulo: 'Mensagem 4',
+gatilho: true,
+horario: 'Quando a Tamara chegar neste slide (Posicionamento Estratégico)',
+blocos: [
+{
+texto: `Ei, você tá aí? 👀\n\nA Imersão tá pegando fogo 🔥\n\nAgora estamos falando sobre Posicionamento Estratégico, o segredo para alinhar sua oferta, comunicação e presença no palco para vender mais.`,
+anexos: [{ label: '🖼️ Ver slide de referência (envie quando ele aparecer)', url: 'https://drive.google.com/file/d/1nIqbCa3_UHJ1672rc1xfdm6-j95kkh6r/view?usp=drive_link' }]
+},
+{
+texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+}
+]
+},
+{
+titulo: 'Mensagem 5',
+gatilho: true,
+horario: 'Quando a Tamara avisar a pausa',
+blocos: [
+{
+texto: `⏸️ Hora da pausa!\n\nVamos dar uma paradinha e voltamos às {{HORARIO}}\ncom mais conteúdo poderoso.\n\nAproveita pra se hidratar e voltar cheia de energia, porque tem muito mais pela frente! 💪\n\n🚀 O palco te espera na volta.`,
+editavel: { token: '{{HORARIO}}', default: '20h00' },
+instrucao: 'Preencha com o horário de volta que a Tamara falar ao vivo (ex.: "20h00" ou "daqui 15 minutos") e envie assim que ela avisar a pausa.'
+}
+]
+},
+{
+titulo: 'Mensagem 6',
+gatilho: true,
+horario: 'Quando a Tamara voltar da pausa',
+blocos: [
+{
+texto: `Voltamos! 🔥\n\nAgora vamos falar sobre:\n\n✅ Como transformar a ideia de um evento em uma cidade real\n✅ Como montar um cronograma de ingressos do seu evento\n✅ O que faz um evento lotar\n✅ E muito mais\n\n🚀 Bora continuar com tudo!`
+},
+{
+texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+}
+]
+},
+{
+titulo: 'Mensagem 7',
+gatilho: true,
+horario: 'Quando aparecer o slide com QR Code do grupo de pré-venda',
+blocos: [
+{
+texto: `🚨 Hoje vai ter um evento especial do programa de mentoria AIM Start!`
+},
+{
+texto: `🎁 São vários bônus exclusivos e cada um é por ordem de compra!\n\nQuem chegar primeiro garante bônus incríveis que juntos valem mais de R$50.000.\n\nQuer sair na frente? Entra agora no grupo de pré-venda 👇\n\nhttps://chat.whatsapp.com/CBAabGCQGjI9bOlE92sNPT?s=cl&p=i&mlu=4`
+}
+]
+},
+{
+titulo: 'Mensagem 8 — Oferta AIM Start',
+gatilho: true,
+horario: 'Na hora da oferta',
+blocos: [
+{
+texto: `🚨 Estão abertas as inscrições para o programa de mentoria AIM Start!\n\nO programa de aceleração onde você estrutura posicionamento, oferta, autoridade e o movimento de crescimento do seu negócio.`,
+anexos: [{ label: '🖼️ Ver imagem da oferta (enviar junto)', url: 'https://drive.google.com/open?id=1lk5w64r1JnCpjDVRJNDP83p1baI-EVkB&usp=drive_copy' }]
+},
+{
+texto: `🔥 Somente hoje: R$4.000 de desconto!\n\nDe R$12.000,00 por R$8.000,00.\n\n💳 No cartão: 12x de R$822,53 ou R$8.000,00 à vista no pix\n📄 No boleto: 1+11x de R$1.000,00`
+},
+{
+texto: `✨ Só nas modalidades de cartão ou pix você também leva:\n\n✅ 1 call individual com a Tamara\n✅ Palco para palestrar em um evento da Tamara em 2027`
+},
+{
+texto: `🎁 E ainda tem bônus por ordem de compra:\n\n🗂️ 20 primeiras pessoas: Trello com os mapas (~R$3.997~)\n🧪 10 primeiras: Laboratório de Análise — pitch e slide (~R$997~)\n🏡 10 primeiras: Mansão em Florianópolis (~R$5.000~)`,
+anexos: [{ label: '🖼️ Ver imagem dos bônus (enviar junto)', url: 'https://drive.google.com/open?id=1BktrmKX5I30nmxEfrKlNA-trtxyGS4Lr&usp=drive_copy' }]
+},
+{
+texto: `🎤 2 primeiras pessoas: Palco pra palestrar (~R$5.000~)\n🔑 1ª pessoa: acesso ao Clube AIM (~R$30k~)\n\n💎 Bônus especiais pra todo mundo: Análise de posicionamento no Instagram + Grupo fechado exclusivo com a Tamara`,
+anexos: [{ label: '🖼️ Ver imagem da estrutura do programa (enviar junto)', url: 'https://drive.google.com/open?id=1nc4YcN2hOGcTJTjE-wGtOwV1eT7lyICS&usp=drive_copy' }]
+},
+{
+texto: `👉 Bora garantir sua vaga e todos os bônus?\n\nClique no link abaixo e comece agora:\n\nhttps://aimhouse.com.br/ofertastart/\n\nVocês nasceram para serem grandes autoridades. 👑`
+}
+]
+},
+{
+titulo: 'Mensagem 9 — Encerramento do Dia 1',
+gatilho: true,
+horario: 'No encerramento do Dia 1 (17/08)',
+blocos: [
+{
+texto: `✅ Encerramos o Dia 1! 🎉\n\nVimos muita coisa hoje e ainda abrimos as vagas para a mentoria AIM Start. Mas calma, ainda não acabou! 👀\n\nAmanhã tem Dia 2 e vem coisa boa:\n\n🎤 Oratória e comunicação estratégica\n💬 Pitch implacável\n📈 Funis que escalam seu negócio mensalmente\n🚀 Como sair do zero pra faturar R$10 milhões em 2 anos\n\n⏰ Amanhã, às 18h00, estaremos ao vivo. O link será enviado aqui no grupo dos inscritos.`
+}
+]
+}
+]
+},
+{
+key: 'dia2',
+label: 'Dia 2 (18/08)',
+mensagens: [
+{
+titulo: 'Mensagem 1',
+horario: 'Envio: 18/08 às 17:30',
+blocos: [
+{
+texto: `Boa tarde! ☀️💛\n\nPreparada para o segundo dia da Imersão Jornada da Autoridade?\n\nOntem foi intenso, eu sei! 😅 Mas hoje é o dia de conectar tudo o que você aprendeu e entender como transformar isso em resultado real.`
+},
+{
+texto: `Hoje a gente vai falar sobre:\n\n🎤 Oratória e comunicação estratégica\n💬 Pitch implacável\n📈 Funis que escalam seu negócio mensalmente\n🚀 Como sair do zero pra faturar R$10 milhões em 2 anos\n\nE muito mais…`
+},
+{
+texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+}
+]
+},
+{
+titulo: 'Mensagem 2',
+gatilho: true,
+horario: 'Assim que a aula ao vivo do Dia 2 começar',
+blocos: [
+{
+texto: `🚨 Estamos ao vivo!\n\nO Dia 2 da Imersão Jornada da Autoridade já começou! 💫\n\nBora aproveitar cada minuto desse dia.`,
+anexos: [{ label: '🖼️ Ver imagem enviada junto', url: 'https://drive.google.com/file/d/1zaXEN-lktSHkAuvnG5TDFaoaQU7VDddD/view?usp=drive_link' }]
+},
+{
+texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+}
+]
+},
+{
+titulo: 'Mensagem 3',
+gatilho: true,
+horario: 'Quando a Tamara chegar neste slide (Funis de Venda)',
+blocos: [
+{
+texto: `🔥 Estamos falando sobre FUNIS DE VENDA ao vivo agora!\n\nLançamento Tradicional, Lançamento Pago, Evento Presencial, Sala Secreta…\n\nA Tamara está mostrando como cada um funciona e qual é o mais estratégico para o seu momento.\n\nEssa é uma das aulas mais práticas da Imersão e você precisa ver isso ao vivo.`,
+anexos: [{ label: '🖼️ Ver slide de referência (envie quando ele aparecer)', url: 'https://drive.google.com/file/d/1HX6TxbJN56e7UmBQW3Nrd5yY2QvQvOF-/view?usp=drive_link' }]
+},
+{
+texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+}
+]
+},
+{
+titulo: 'Mensagem 4 — Oferta (a montar)',
+placeholder: true,
+nota: 'Karine, aqui nesse momento são as mensagens de oferta — a oferta muda um pouco nesse dia, então essas mensagens você mesma vai montar.'
+},
+{
+titulo: 'Mensagem 5',
+gatilho: true,
+horario: 'Quando a Tamara chegar na parte de Oratória',
+blocos: [
+{
+texto: `🎤 Oratória e Comunicação Estratégica — AO VIVO AGORA!\n\n"Sua voz é o veículo da sua autoridade."\n\nA Tamara está mostrando como se comunicar de forma que as pessoas te ouçam, confiem e queiram estar presentes nos seus eventos.\n\nIsso aqui muda a forma como você aparece no palco e nas telas.`,
+anexos: [{ label: '🖼️ Ver slide de referência (envie quando ele aparecer)', url: 'https://drive.google.com/file/d/1DB5JDmX9_gDZaLRwDNwUyVpvsrLhZDvl/view?usp=drive_link' }]
+},
+{
+texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\nhttps://us06web.zoom.us/j/85777488688?pwd=Qk8I9T1TU0eZdFbtFoat6oZQe5JxCF.1`
+}
+]
+},
+{
+titulo: 'Mensagem 6 — Reforço da oferta (a montar)',
+placeholder: true,
+nota: 'Karine, essa é a mensagem de reforço da oferta — você mesma vai montar aqui.'
+},
+{
+titulo: 'Mensagem 7 — Agradecimento final',
+gatilho: true,
+horario: 'No encerramento do Dia 2 (despedida)',
+blocos: [
+{
+texto: `Que Imersão incrível essa foi! 🤎✨\n\nForam dois dias de muito conteúdo, muita entrega e muita transformação.\n\nVer cada uma de vocês presentes, participando, anotando, perguntando… isso é o que faz tudo valer a pena.\n\nFico muito feliz por ter vivido esse momento com você. Obrigada de coração. 🙏`,
+anexos: [{ label: '🖼️ Ver exemplo (edição anterior)', url: 'https://drive.google.com/file/d/1mMJ3BCr3ufHYxy6vcpLjhFDxQWJxEiNy/view?usp=drive_link' }],
+instrucao: 'Essa imagem é um exemplo da edição anterior. O ideal é a Karine criar uma nova (pode pedir pro ChatGPT gerar uma parecida, com os prints/depoimentos deste dia). Se não der tempo de fazer a imagem, pode enviar só o texto destes 2 blocos, sem imagem.'
+},
+{
+texto: `E olha que lindo: as transformações já estão acontecendo. 💛\n\nVeja o que algumas participantes falaram.\n\nAgora é colocar tudo em prática.\n\nVocê não é mais a mesma que entrou aqui ontem. 🚀\n\nO palco está te esperando. 🤎`
+}
+]
+}
+]
+}
+]
+}
+};
+
+const iconeCopiar = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+const iconeCheck = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+function escapeHtml(str) {
+return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function linkify(html) {
+return html.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+}
+
+function renderBloco(bloco, idx) {
+if (bloco.pendente) {
+return `
+<div class="bloco bloco-pendente">
+<div class="bloco-label">Bloco ${idx + 1}</div>
+<div class="bloco-nota">⏳ ${bloco.nota || 'Conteúdo ainda não cadastrado.'}</div>
+</div>`;
+}
+let textoHtml;
+if (bloco.editavel) {
+const partes = bloco.texto.split(bloco.editavel.token);
+const antes = linkify(escapeHtml(partes[0]));
+const depois = linkify(escapeHtml(partes[1]));
+textoHtml = `${antes}<input type="text" class="campo-editavel" data-token="${encodeURIComponent(bloco.editavel.token)}" value="${bloco.editavel.default}">${depois}`;
+} else {
+textoHtml = linkify(escapeHtml(bloco.texto));
+}
+const anexosHtml = (bloco.anexos || []).map(anexo =>
+anexo.pendente
+? `<span class="anexo anexo-pendente">⏳ ${anexo.label}</span>`
+: `<a class="anexo" href="${anexo.url}" target="_blank" rel="noopener">${anexo.label}</a>`
+).join('');
+const instrucaoHtml = bloco.instrucao ? `<div class="bloco-instrucao">ℹ️ ${bloco.instrucao}</div>` : '';
+return `
+<div class="bloco">
+<button class="btn-copiar" onclick="copiarBloco(this)" aria-label="Copiar bloco" title="Copiar texto">${iconeCopiar}</button>
+<div class="bloco-label">Bloco ${idx + 1}</div>
+<div class="bloco-texto" data-raw="${encodeURIComponent(bloco.texto)}">${textoHtml}</div>
+${anexosHtml ? `<div class="anexos">${anexosHtml}</div>` : ''}
+${instrucaoHtml}
+</div>`;
+}
+
+function renderMensagem(msg) {
+if (msg.placeholder) {
+return `
+<div class="msg-card placeholder">
+<div>
+<span class="msg-titulo">${msg.titulo} · ainda não cadastrada</span>
+${msg.nota ? `<div class="placeholder-nota">${msg.nota}</div>` : ''}
+</div>
+</div>`;
+}
+const blocosHtml = msg.blocos.map(renderBloco).join('');
+return `
+<div class="msg-card">
+<div class="msg-topo">
+<span class="msg-titulo">${msg.titulo}</span>
+${msg.horario ? `<span class="chip">${msg.gatilho ? '🎯' : '🕐'} ${msg.horario}</span>` : ''}
+</div>
+<div class="blocos">${blocosHtml}</div>
+</div>`;
+}
+
+function renderCategoria(cat) {
+if (!cat.mensagens.length) {
+return `<div class="estado-vazio">Nenhuma mensagem cadastrada ainda em <strong>${cat.label}</strong>.</div>`;
+}
+return cat.mensagens.map(renderMensagem).join('');
+}
+
+function montarLancamento(key, lanc) {
+const categoriasNav = lanc.categorias.map((cat, i) =>
+`<button class="aba-cat ${i === 0 ? 'ativa' : ''}" data-cat="${cat.key}" onclick="mostrarCategoria('${key}','${cat.key}',this)">${cat.label}</button>`
+).join('');
+const categoriasPaineis = lanc.categorias.map((cat, i) =>
+`<div class="painel-categoria ${i === 0 ? 'ativo' : ''}" data-cat="${key}-${cat.key}">${renderCategoria(cat)}</div>`
+).join('');
+return `
+<nav class="abas-categoria">${categoriasNav}</nav>
+${categoriasPaineis}`;
+}
+
+function montarPagina() {
+const abasNav = document.getElementById('abasLancamento');
+const paineis = document.getElementById('paineisLancamento');
+const keys = Object.keys(LANCAMENTOS);
+keys.forEach((key, i) => {
+const lanc = LANCAMENTOS[key];
+const aba = document.createElement('button');
+aba.className = 'aba-lanc' + (i === 0 ? ' ativa' : '');
+aba.textContent = lanc.label;
+aba.onclick = () => mostrarLancamento(key, aba);
+abasNav.appendChild(aba);
+
+const painel = document.createElement('div');
+painel.className = 'painel-lancamento' + (i === 0 ? ' ativo' : '');
+painel.dataset.lanc = key;
+painel.innerHTML = montarLancamento(key, lanc);
+paineis.appendChild(painel);
+});
+}
+
+function mostrarLancamento(key, btn) {
+document.querySelectorAll('.aba-lanc').forEach(b => b.classList.remove('ativa'));
+btn.classList.add('ativa');
+document.querySelectorAll('.painel-lancamento').forEach(p => p.classList.toggle('ativo', p.dataset.lanc === key));
+}
+
+function mostrarCategoria(lancKey, catKey, btn) {
+const nav = btn.parentElement;
+nav.querySelectorAll('.aba-cat').forEach(b => b.classList.remove('ativa'));
+btn.classList.add('ativa');
+const container = nav.parentElement;
+container.querySelectorAll('.painel-categoria').forEach(p => {
+p.classList.toggle('ativo', p.dataset.cat === `${lancKey}-${catKey}`);
+});
+}
+
+function feedbackCopiado(el) {
+const original = el.innerHTML;
+el.classList.add('copiado');
+el.innerHTML = iconeCheck;
+setTimeout(() => { el.classList.remove('copiado'); el.innerHTML = original; }, 1500);
+}
+
+function textoAtualDoBloco(bloco) {
+let texto = decodeURIComponent(bloco.querySelector('.bloco-texto').dataset.raw);
+const input = bloco.querySelector('.campo-editavel');
+if (input) {
+const token = decodeURIComponent(input.dataset.token);
+texto = texto.split(token).join(input.value || input.placeholder || '');
+}
+return texto;
+}
+
+function copiarBloco(btn) {
+const bloco = btn.closest('.bloco');
+copiarParaClipboard(textoAtualDoBloco(bloco), btn);
+}
+
+function copiarParaClipboard(texto, btn) {
+if (navigator.clipboard && navigator.clipboard.writeText) {
+navigator.clipboard.writeText(texto).then(() => feedbackCopiado(btn)).catch(() => copiarComFallback(texto, btn));
+} else {
+copiarComFallback(texto, btn);
+}
+}
+
+function copiarComFallback(texto, btn) {
+const area = document.createElement('textarea');
+area.value = texto;
+area.style.position = 'fixed';
+area.style.opacity = '0';
+document.body.appendChild(area);
+area.focus();
+area.select();
+try { document.execCommand('copy'); feedbackCopiado(btn); } catch (e) {}
+document.body.removeChild(area);
+}
+
+montarPagina();
+</script>
+</body>
+</html>
