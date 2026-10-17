@@ -18,7 +18,8 @@ Documento em construção. Rafael vai detalhando cada etapa; o que ainda não fo
 | 4 | Trocar as entregas na Zouti | Pendente |
 | 5 | Atualizar a página de vendas | Pendente |
 | 6 | Atualizar a página de obrigado | Pendente |
-| 7 | Outras peças que mudam a cada edição | Observado, a confirmar |
+| 7 | Atualizar os textos na MemberKit | Detalhado |
+| 8 | Outras peças que mudam a cada edição | Observado, a confirmar |
 
 ---
 
@@ -103,7 +104,43 @@ Regra de texto: sem travessão (usar dois-pontos, vírgula ou ponto).
 
 ---
 
-## 7. Outras peças que mudam a cada edição (observadas nas edições anteriores, a confirmar)
+## 7. Atualizar os textos na MemberKit
+
+As alunas entram pela MemberKit. Dois textos mudam a cada edição: a descrição do produto e a mensagem de boas-vindas. Em ambos, trocar número da edição, datas e link do grupo oficial.
+
+**Link do grupo #13:** `https://chat.whatsapp.com/HsilBgoDdig877vVZuFeGS?s=cl&p=i&mlu=4&ilr=4&iam=0`
+
+**Descrição do produto (13ª edição):**
+
+```
+Imersão online e ao vivo nos dias 21 e 22/11 para quem deseja criar eventos presenciais Pocket com potencial de faturamento a partir de R$30 mil. Com a Tamara Damares, você aprenderá posicionamento de autoridade, pitch e vendas ao vivo, formatos de eventos, oratória, engajamento, captação de público sem depender de tráfego pago e a estratégia completa de pré, durante e pós-evento para repetir e escalar seus resultados. E com a Izah Menezes, vai aprender a produzir conteúdo e construir uma audiência que compra de você e enche o seu evento.
+```
+
+**Mensagem de boas-vindas (13ª edição):**
+
+```
+🚀 Bem-vindos à Imersão Jornada da Autoridade 13ª Edição!
+
+Nos dias 21/11, das 9h às 16h, e 22/11, das 9h às 12h, você vai viver um final de semana transformador. Com a Tamara Damares, você vai aprender como se posicionar como autoridade, criar eventos presenciais Pocket e ter clareza sobre como vender e escalar seus resultados através dessa estratégia. E com a Izah Menezes, vai aprender a produzir conteúdo e construir uma audiência que compra de você e enche o seu evento.
+
+👏 Obrigado por garantir a sua vaga e embarcar com a gente nessa jornada!
+
+⚠️ Atenção: se você ainda não entrou no grupo oficial de WhatsApp, faça isso agora. Será por lá que enviaremos todas as comunicações importantes do evento, incluindo o link do Zoom para acessar as aulas nos dois dias da imersão.
+
+👉 Entre no grupo oficial pelo link abaixo:
+https://chat.whatsapp.com/HsilBgoDdig877vVZuFeGS?s=cl&p=i&mlu=4&ilr=4&iam=0
+
+⚡ Além disso, se você ainda não respondeu a pesquisa de check-in, é muito importante que faça isso para confirmar sua participação no evento.
+
+👉 Clique aqui, responda às perguntas e finalize seu check-in:
+forms.gle/hPDwjL66tMTNFazZ7
+
+Nos vemos em breve!
+```
+
+---
+
+## 8. Outras peças que mudam a cada edição (observadas nas edições anteriores, a confirmar)
 
 - **Guia de mensagens do grupo:** nova página `mensagens-lancamentos-tpXX.html` neste repositório, copiada da edição anterior com datas, links do Zoom (um por dia), link do grupo de pré-venda e oferta atualizados.
 - **Links do Zoom:** a Karine envia um link por dia; entram nas mensagens dos respectivos dias.
