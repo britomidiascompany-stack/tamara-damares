@@ -19,7 +19,8 @@ Documento em construção. Rafael vai detalhando cada etapa; o que ainda não fo
 | 5 | Atualizar a página de vendas | Pendente |
 | 6 | Atualizar a página de obrigado | Pendente |
 | 7 | Atualizar os textos na MemberKit | Detalhado |
-| 8 | Outras peças que mudam a cada edição | Observado, a confirmar |
+| 8 | Atualizar o e-book de boas-vindas (Canva) | Detalhado |
+| 9 | Outras peças que mudam a cada edição | Observado, a confirmar |
 
 ---
 
@@ -140,7 +141,24 @@ Nos vemos em breve!
 
 ---
 
-## 8. Outras peças que mudam a cada edição (observadas nas edições anteriores, a confirmar)
+## 8. Atualizar o e-book de boas-vindas (Canva)
+
+PDF que a aluna recebe ao comprar. Existe a versão "Gravação 1 ano" (design `DAHU_dbOuyU`, 2 páginas); confirmar se há outras versões (sem gravação, replay, etc.).
+
+**Como fazer:** duplicar o design da edição anterior no Canva, editar, exportar em PDF e trocar a entrega (etapa 4).
+
+**O que muda a cada edição:**
+- Nome do arquivo: `EBOOK | Imersão Jornada da Autoridade 13ª EDIÇÃO (GRAVAÇÃO 1 ANO) - [NOV 2026]`.
+- Página 1, primeiro parágrafo: datas e horários.
+- Página 2, "Pesquisa e check-in": datas e horários na frase "já marque na sua agenda".
+- Página 2, "Acesso e comunicação": link do grupo oficial em dois lugares, o texto do link e o hiperlink escondido no "CLIQUE AQUI". O hiperlink precisa ser trocado à mão no Canva (clicar no texto, editar link).
+- Link da pesquisa de check-in: o e-book usa `forms.gle/vx3GoocJ17qZdJ6w7` e um link longo do Google Forms. Conferir se é o mesmo formulário da descrição do grupo (`forms.gle/hPDwjL66tMTNFazZ7`).
+
+**13ª edição (feito em 17/10/2026):** nome, datas e texto do link trocados. Hiperlink do "CLIQUE AQUI" trocado pelo Rafael.
+
+---
+
+## 9. Outras peças que mudam a cada edição (observadas nas edições anteriores, a confirmar)
 
 - **Guia de mensagens do grupo:** nova página `mensagens-lancamentos-tpXX.html` neste repositório, copiada da edição anterior com datas, links do Zoom (um por dia), link do grupo de pré-venda e oferta atualizados.
 - **Links do Zoom:** a Karine envia um link por dia; entram nas mensagens dos respectivos dias.
