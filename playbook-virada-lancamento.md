@@ -149,12 +149,12 @@ PDF que a aluna recebe ao comprar. Existe a versão "Gravação 1 ano" (design `
 
 **O que muda a cada edição:**
 - Nome do arquivo: `EBOOK | Imersão Jornada da Autoridade 13ª EDIÇÃO (GRAVAÇÃO 1 ANO) - [NOV 2026]`.
-- Página 1, primeiro parágrafo: datas e horários.
+- Página 1, primeiro parágrafo: datas e horários. Na 13ª edição ganhou também a frase da Izah: "E nesta edição tem mais: com a Izah Menezes, você também vai aprender a produzir conteúdo e construir uma audiência que compra de você e enche o seu evento." (bloco de texto subido 23px para caber).
 - Página 2, "Pesquisa e check-in": datas e horários na frase "já marque na sua agenda".
 - Página 2, "Acesso e comunicação": link do grupo oficial em dois lugares, o texto do link e o hiperlink escondido no "CLIQUE AQUI". O hiperlink precisa ser trocado à mão no Canva (clicar no texto, editar link).
 - Link da pesquisa de check-in: o e-book usa `forms.gle/vx3GoocJ17qZdJ6w7` e um link longo do Google Forms. Conferir se é o mesmo formulário da descrição do grupo (`forms.gle/hPDwjL66tMTNFazZ7`).
 
-**13ª edição (feito em 17/10/2026):** nome, datas e texto do link trocados. Hiperlink do "CLIQUE AQUI" trocado pelo Rafael.
+**13ª edição (feito em 17/10/2026):** nome, datas, frase da Izah e texto do link trocados. Hiperlink do "CLIQUE AQUI" trocado pelo Rafael.
 
 ---
 
