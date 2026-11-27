@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mensagens TP13 | Imersão Marca de Autoridade</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+--roxo: #7C3AED;
+--roxo-dark: #5B21B6;
+--roxo-deep: #3B0F73;
+--roxo-light: #A78BFA;
+--roxo-xlight: #EDE9FE;
+--preto: #0A0A0A;
+--ink: #141018;
+--cinza: #5B5566;
+--linha: #E7E3EE;
+--bg: #FFFFFF;
+--bg-soft: #FAF9FC;
+--verde: #15803D;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: var(--bg); font-family: 'Poppins', sans-serif; color: var(--ink); }
+
+.hero {
+position: relative;
+overflow: hidden;
+background:
+radial-gradient(1100px 500px at 78% -10%, rgba(124,58,237,.55), transparent 60%),
+linear-gradient(150deg, #0A0A0A 0%, #17111F 45%, #3B0F73 100%);
+padding: 6vh 28px 7vh;
+}
+.hero::before {
+content: '';
+position: absolute; inset: 0;
+background-image:
+linear-gradient(rgba(255,255,255,.14) 1px, transparent 1px),
+linear-gradient(90deg, rgba(255,255,255,.14) 1px, transparent 1px);
+background-size: 44px 44px;
+-webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+pointer-events: none;
+}
+.hero-conteudo { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; }
+
+.brand { display: flex; align-items: center; gap: 14px; }
+.brand svg { width: 34px; height: 34px; flex-shrink: 0; }
+.brand .word { display: flex; align-items: center; gap: 10px; font-weight: 300; color: #fff; }
+.brand .word b { font-weight: 800; font-size: 16px; }
+.brand .word .bar { width: 2px; height: 22px; background: rgba(255,255,255,.55); }
+.brand .word span { font-size: 16px; letter-spacing: .22em; }
+
+.pill {
+display: inline-flex; align-items: center; gap: 8px;
+border: 1px solid var(--roxo-light); color: var(--roxo-light);
+border-radius: 100px; padding: 8px 18px;
+font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase;
+background: transparent;
+}
+.pill.solid { background: linear-gradient(90deg, var(--roxo), var(--roxo-dark)); color: #fff; border-color: transparent; }
+
+h1 { font-weight: 800; font-size: clamp(32px, 4.4vw, 52px); letter-spacing: -.02em; line-height: 1.15; color: #fff; }
+h1 .destaque { color: var(--roxo-light); }
+p.hero-sub { font-size: clamp(15px, 1.6vw, 17px); font-weight: 300; color: rgba(255,255,255,.72); max-width: 640px; line-height: 1.6; }
+
+.hero-tag { margin: 3.2vh 0 2vh; }
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+main { padding: 6vh 0 8vh; }
+
+.section-label {
+display: flex; align-items: center; gap: 12px;
+font-size: 13px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;
+color: var(--roxo); margin-bottom: 2.4vh;
+}
+.section-label::before { content: ''; width: 34px; height: 2px; background: var(--roxo); border-radius: 2px; }
+
+nav.abas-lancamento { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 5vh; padding-bottom: 4vh; border-bottom: 1px solid var(--linha); }
+.aba-lanc {
+font-family: inherit; cursor: pointer;
+border: 1px solid var(--roxo-light); color: var(--roxo-dark);
+background: transparent; border-radius: 100px; padding: 10px 22px;
+font-size: 13px; font-weight: 600; letter-spacing: .06em;
+transition: all .15s;
+}
+.aba-lanc:hover { background: var(--roxo-xlight); }
+.aba-lanc.ativa { background: linear-gradient(90deg, var(--roxo), var(--roxo-dark)); color: #fff; border-color: transparent; }
+
+nav.abas-categoria { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 4vh; }
+.aba-cat {
+font-family: inherit; cursor: pointer;
+border: 1px solid var(--linha); color: var(--cinza);
+background: var(--bg-soft); border-radius: 10px; padding: 9px 18px;
+font-size: 13px; font-weight: 500; transition: all .15s;
+}
+.aba-cat:hover { color: var(--ink); border-color: var(--roxo-light); }
+.aba-cat.ativa { background: var(--roxo-xlight); color: var(--roxo-dark); border-color: var(--roxo-light); font-weight: 600; }
+
+.painel-lancamento { display: none; }
+.painel-lancamento.ativo { display: block; animation: fadein .3s ease; }
+.painel-categoria { display: none; }
+.painel-categoria.ativo { display: block; animation: fadein .3s ease; }
+@keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+
+.msg-card {
+background: var(--bg-soft);
+border: 1px solid var(--linha);
+border-radius: 18px;
+padding: 26px 28px;
+margin-bottom: 22px;
+}
+.msg-topo { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 20px; }
+.msg-titulo { font-size: 18px; font-weight: 700; color: var(--ink); }
+.chip {
+font-size: 12px; font-weight: 600; color: var(--roxo-dark);
+background: var(--roxo-xlight); border: 1px solid var(--roxo-light);
+padding: 5px 14px; border-radius: 999px;
+}
+.blocos { display: flex; flex-direction: column; gap: 14px; }
+.bloco {
+position: relative;
+background: #fff;
+border: 1px solid var(--linha);
+border-radius: 14px;
+padding: 18px 20px 16px;
+}
+.bloco .bloco-label {
+font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+color: var(--roxo); margin-bottom: 10px;
+}
+.bloco .bloco-texto {
+font-size: 15px; font-weight: 300; color: var(--ink);
+line-height: 1.65; white-space: pre-wrap; padding-right: 42px;
+}
+.bloco .bloco-texto a { color: var(--roxo-dark); word-break: break-all; }
+.bloco .anexos { margin-top: 14px; display: flex; flex-wrap: wrap; gap: 8px; }
+.bloco .anexo {
+display: inline-flex; align-items: center; gap: 8px;
+font-size: 12.5px; font-weight: 600; color: var(--roxo-dark);
+background: var(--roxo-xlight); border: 1px solid var(--roxo-light);
+padding: 6px 14px; border-radius: 999px; text-decoration: none;
+}
+.bloco .anexo:hover { background: var(--roxo-light); color: #fff; }
+.bloco .anexo.anexo-pendente {
+color: var(--cinza); background: var(--bg-soft); border-style: dashed; cursor: default;
+}
+.bloco .anexo.anexo-pendente:hover { background: var(--bg-soft); color: var(--cinza); }
+
+.btn-copiar {
+position: absolute; top: 14px; right: 14px;
+width: 30px; height: 30px; border-radius: 8px;
+background: #fff; border: 1px solid var(--roxo-light);
+color: var(--roxo); cursor: pointer;
+display: flex; align-items: center; justify-content: center;
+transition: all .15s;
+}
+.btn-copiar:hover { background: var(--roxo); color: #fff; }
+.btn-copiar.copiado { border-color: var(--verde); color: var(--verde); background: #F0FDF4; }
+.btn-copiar svg { width: 15px; height: 15px; }
+
+.bloco.bloco-pendente { border-style: dashed; background: var(--bg-soft); }
+.bloco-nota { font-size: 13px; font-weight: 300; color: var(--cinza); font-style: italic; }
+
+.campo-editavel {
+font-family: inherit; font-size: inherit; font-weight: 600; color: var(--roxo-dark);
+border: none; border-bottom: 2px dashed var(--roxo-light); background: var(--roxo-xlight);
+padding: 1px 6px; border-radius: 4px; width: 76px; text-align: center;
+}
+.campo-editavel:focus { outline: none; border-bottom-style: solid; }
+
+.bloco-instrucao {
+margin-top: 12px; font-size: 12.5px; font-weight: 300; color: var(--cinza);
+font-style: italic; line-height: 1.5;
+}
+
+.msg-card.placeholder {
+border-style: dashed; background: transparent;
+padding: 22px 28px;
+}
+.msg-card.placeholder .msg-titulo { font-size: 14px; font-weight: 500; color: var(--cinza); }
+.placeholder-nota {
+margin-top: 8px; font-size: 13px; font-weight: 300; color: var(--cinza);
+max-width: 760px; line-height: 1.55;
+}
+
+.estado-vazio {
+border: 1px dashed var(--linha); border-radius: 18px;
+padding: 5vh 2vw; text-align: center; color: var(--cinza);
+font-size: 14px; font-weight: 300; background: var(--bg-soft);
+}
+
+footer.rodape {
+background: var(--ink);
+padding: 5vh 28px;
+display: flex; flex-direction: column; align-items: center; gap: 14px;
+text-align: center;
+}
+footer.rodape .brand .word { color: #fff; }
+footer.rodape p { font-size: 12.5px; color: rgba(255,255,255,.55); font-weight: 300; }
+
+@media (max-width: 760px) {
+.hero { padding: 5vh 20px 6vh; }
+.wrap { padding: 0 20px; }
+.msg-topo { flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+<div class="hero-conteudo">
+<div class="brand">
+<svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+<polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+<polygon points="50,33 65,59 35,59"></polygon>
+<line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+<line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+<line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+<line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+<line x1="10" y1="27" x2="50" y2="33"></line>
+</svg>
+<span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+</div>
+<div class="pill solid hero-tag">Tamara Damares</div>
+<h1>Mensagens dos <span class="destaque">Lançamentos</span></h1>
+<p class="hero-sub">Catálogo de mensagens prontas para envio no grupo do WhatsApp, organizadas por lançamento. Clique no ícone de cópia em cada bloco para copiar o texto.</p>
+</div>
+</div>
+
+<main>
+<div class="wrap">
+<div class="section-label">Selecione o lançamento</div>
+<nav class="abas-lancamento" id="abasLancamento"></nav>
+<div id="paineisLancamento"></div>
+</div>
+</main>
+
+<footer class="rodape">
+<div class="brand">
+<svg viewBox="0 0 100 100" fill="none" stroke="#fff" stroke-width="2.4"
+stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
+<polygon points="50,4 90,27 90,73 50,96 10,73 10,27"></polygon>
+<polygon points="50,33 65,59 35,59"></polygon>
+<line x1="50" y1="4" x2="50" y2="33"></line><line x1="90" y1="73" x2="65" y2="59"></line>
+<line x1="10" y1="73" x2="35" y2="59"></line><line x1="90" y1="27" x2="50" y2="33"></line>
+<line x1="90" y1="27" x2="65" y2="59"></line><line x1="50" y1="96" x2="65" y2="59"></line>
+<line x1="50" y1="96" x2="35" y2="59"></line><line x1="10" y1="27" x2="35" y2="59"></line>
+<line x1="10" y1="27" x2="50" y2="33"></line>
+</svg>
+<span class="word"><b>BM</b><i class="bar"></i><span>MÍDIAS</span></span>
+</div>
+<p>rafael@britomidias.com.br</p>
+</footer>
+
+<script>
+const ZOOM_DIA1 = '🔗 LINK DO ZOOM DO DIA 1 (aguardando)';
+const ZOOM_DIA2 = '🔗 LINK DO ZOOM DO DIA 2 (aguardando)';
+const AVISO_ZOOM = 'Link do Zoom ainda não cadastrado. Assim que a equipe mandar os links, a página é atualizada.';
+
+const LANCAMENTOS = {
+  tp13: {
+    label: 'TP13 · Imersão Marca de Autoridade',
+    categorias: [
+      {
+        key: 'onboard',
+        label: 'Onboard (sexta, 27/11)',
+        mensagens: [
+          {
+            titulo: 'Mensagem 1',
+            horario: 'Envio: sexta, 27/11 às 18:00',
+            blocos: [
+              {
+                texto: `Ansiosa para o nosso encontro? 🚀\n\nA Imersão Marca de Autoridade acontece neste final de semana, nos dias 28 e 29 de novembro (AMANHÃ), 100% online pelo Zoom, com Tamara Damares e Izah Menezes.\n\n🕒 Horários da Imersão:\n\n👉 Sábado (28/11): das 09h00 às 16h00\n👉 Domingo (29/11): das 09h00 às 12h00`,
+                anexos: [{ label: '🖼️ Imagem da Imersão Marca de Autoridade (aguardando)', pendente: true }],
+                instrucao: 'A imagem do TP12 era da Jornada da Autoridade. Enviar junto uma arte nova da Imersão Marca de Autoridade.'
+              },
+              {
+                texto: `📍 Onde vai rolar?\nA Imersão será pelo Zoom, e o link de acesso será enviado 1 hora antes do início, aqui no grupo de avisos.\n\n🎞️ Vai ter gravação?\nSim! Mas a gravação é uma entrega à parte e não está inclusa no ingresso do evento ao vivo.\n\n⏰ Atenção: a venda da gravação é só HOJE!\n\nQuem garantir a gravação hoje ainda ganha de bônus os slides que serão apresentados no evento, mas essa condição também vale só até hoje.\n\nGaranta a sua agora por R$97,00 👇\n\nhttps://pay.zouti.com.br/checkout?product_offer_id=prod_offer_mcmanegurm4ljk3vlz0564`,
+                instrucao: 'Valor e link da gravação mantidos do TP11/TP12. Confirmar se o checkout e o preço continuam os mesmos para esta edição antes de enviar.'
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 2',
+            horario: 'Envio: sexta, 27/11 às 18:10',
+            blocos: [
+              {
+                texto: `Olá, maravilhosas!\n\nPara que a sua experiência na imersão seja ainda mais direcionada, criamos um formulário rápido para entender o seu momento atual, seu negócio, seus desafios e suas expectativas.\n\nResponda com sinceridade, porque essas informações vão nos ajudar a conduzir uma imersão mais estratégica, profunda e transformadora para você.\n\nLink do formulário:\nhttps://forms.gle/hPDwjL66tMTNFazZ7\n\nTe espero preparada para construir a sua marca de autoridade!`,
+                instrucao: 'Link do formulário de check-in da 13ª edição (o mesmo do playbook). Se a equipe criou outro formulário, trocar aqui.'
+              }
+            ]
+          }
+        ]
+      },
+      {
+        key: 'dia1',
+        label: 'Dia 1 (sábado, 28/11)',
+        mensagens: [
+          {
+            titulo: 'Mensagem 1',
+            horario: 'Envio: sábado, 28/11 às 08:00',
+            blocos: [
+              {
+                texto: `Bom diaaa! 🤎🤎\n\nHoje é o grande dia da Imersão Marca de Autoridade!\n\nA gente começa em 1 h, então aproveita pra se organizar:\n\nPega seu caderninho, encontra um cantinho tranquilo e se prepara pra mergulhar em muito conteúdo prático com a Tamara e a Izah.`
+              },
+              {
+                texto: `Algumas diquinhas pra aproveitar melhor o dia:\n\n✅ Tenha um caderno e uma caneta à mão pra anotar os insights.\n✅ Participe, faça perguntas e interaja com o grupo.\n✅ E claro, aproveite para fazer networking com outras participantes!\n\nVai ser intenso e transformador.\n\n🚀 O palco está te esperando!`
+              },
+              {
+                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`,
+                instrucao: AVISO_ZOOM
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 2',
+            horario: 'Envio: sábado, 28/11 às 09:00',
+            blocos: [
+              {
+                texto: `🚨 Começouuu!\n\nA Imersão Marca de Autoridade já está ao vivo! 💫\n\nA Tamara e a Izah estão abrindo o evento falando sobre a nova empresária de autoridade: quem ela é, como pensa e por que o mercado valoriza quem constrói uma marca forte.`,
+                anexos: [{ label: '🖼️ Imagem de "começou" (aguardando arte nova)', pendente: true }]
+              },
+              {
+                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 3',
+            horario: 'Envio: sábado, 28/11 às 09:15',
+            blocos: [
+              {
+                texto: `🚨 Estamos ao vivo!\n\nA Imersão Marca de Autoridade já começou! 💫\n\nSe você ainda não entrou, corre que a abertura está imperdível.`
+              },
+              {
+                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 4: Mentalidade',
+            gatilho: true,
+            horario: 'Quando a Izah começar Mentalidade e identidade (previsto ~9h30)',
+            blocos: [
+              {
+                texto: `Ei, você tá aí? 👀\n\nAgora é a vez da Izah, falando sobre Mentalidade, identidade e quebra de ciclos.\n\nAntes de qualquer estratégia, vem a forma como você se enxerga como empresária. É isso que destrava o resto.`
+              },
+              {
+                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 5: Posicionamento',
+            gatilho: true,
+            horario: 'Quando a Tamara começar Posicionamento premium (previsto ~10h30)',
+            blocos: [
+              {
+                texto: `A Imersão tá pegando fogo 🔥\n\nAgora a Tamara está falando sobre Posicionamento premium e diferenciação: como sair do "mais uma" e virar a referência que as pessoas escolhem e indicam.`
+              },
+              {
+                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 6: Pausa do almoço',
+            gatilho: true,
+            horario: 'Quando avisarem a pausa do almoço (previsto ~12h)',
+            blocos: [
+              {
+                texto: `🍽️ Hora da pausa!\n\nVamos dar uma paradinha pro almoço e voltamos às {{HORARIO}} com mais conteúdo poderoso.\n\nAproveita pra descansar, se hidratar e voltar cheia de energia, porque a tarde promete! 💪\n\n🚀 O palco te espera na volta.`,
+                editavel: { token: '{{HORARIO}}', default: '13h00' },
+                instrucao: 'Preencha com o horário de volta que falarem ao vivo (ex.: "13h00" ou "daqui 40 minutos") e envie assim que avisarem a pausa.'
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 7: Volta do almoço',
+            gatilho: true,
+            horario: 'Quando voltarem do almoço (previsto ~13h)',
+            blocos: [
+              {
+                texto: `Voltamos! 🔥\n\nNa parte da tarde, a Izah abre com Construção de audiência e comunidade: como atrair as pessoas certas e construir uma audiência que confia em você e compra de você.\n\n🚀 Bora continuar com tudo!`
+              },
+              {
+                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 8: Conteúdo',
+            gatilho: true,
+            horario: 'Quando a Izah começar Narrativas e conteúdo (previsto ~14h)',
+            blocos: [
+              {
+                texto: `🎙️ Narrativas, conteúdo e comunicação: AO VIVO AGORA!\n\nEssa é a parte que separa quem só aparece de quem realmente impacta.\n\nA Izah está mostrando como criar conteúdo que posiciona, conecta e gera desejo, sem ficar refém de trends. 🔥`
+              },
+              {
+                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 9: Método próprio',
+            gatilho: true,
+            horario: 'Quando a Tamara começar Método próprio e esteira (previsto ~15h)',
+            blocos: [
+              {
+                texto: `🧩 Método próprio e esteira de produtos: AO VIVO AGORA!\n\nA Tamara está mostrando como transformar o que você já sabe em um método com a sua cara, e como organizar seus produtos em uma esteira que faz sentido para a sua cliente.`
+              },
+              {
+                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 10: Grupo de pré-venda',
+            gatilho: true,
+            horario: 'Quando aparecer o slide com o QR Code do grupo de pré-venda',
+            blocos: [
+              {
+                texto: `🚨 Amanhã tem uma condição especial para o AIM Brand!`
+              },
+              {
+                texto: `🎁 Quem estiver na pré-venda vai receber um voucher de R$ 4.000 de desconto, e ainda tem bônus por ordem de entrada.\n\nQuer sair na frente? Entra agora no grupo de pré-venda 👇\n\n🔗 LINK DO GRUPO DE PRÉ-VENDA (aguardando)`,
+                instrucao: 'Falta o link do grupo de pré-venda desta edição (o do TP12 era de outro lançamento). Voucher de R$ 4.000 conforme a oferta fechada para o AIM Brand.'
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 11: Encerramento do Dia 1',
+            gatilho: true,
+            horario: 'No encerramento do Dia 1 (28/11)',
+            blocos: [
+              {
+                texto: `✅ Encerramos o Dia 1! 🎉\n\nVimos muita coisa hoje, mas calma, ainda não acabou! 👀\n\nAmanhã é o dia de transformar tudo isso em negócio:\n\n🎯 Como transformar conhecimento em ofertas premium\n🎤 Eventos presenciais e online como estratégia comercial\n📊 Projeção financeira, estrutura e execução\n🗺️ Seu plano de ação para os próximos 30 dias\n\n⏰ Amanhã, às 9h00, estaremos ao vivo. O link será enviado aqui no grupo.`,
+                anexos: [{ label: '🖼️ Imagem com depoimentos do Dia 1 (montar com os prints de hoje)', pendente: true }]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        key: 'dia2',
+        label: 'Dia 2 (domingo, 29/11)',
+        mensagens: [
+          {
+            titulo: 'Mensagem 1',
+            horario: 'Envio: domingo, 29/11 às 08:30',
+            blocos: [
+              {
+                texto: `Bom diaaa! ☀️💛\n\nPreparada para o segundo dia da Imersão Marca de Autoridade?\n\nOntem foi intenso, eu sei! 😅 Mas hoje é o dia de conectar tudo o que você aprendeu e transformar em negócio.`
+              },
+              {
+                texto: `Hoje a gente vai falar sobre:\n\n🎯 Ofertas premium a partir do seu conhecimento\n🎤 Eventos presenciais e online que posicionam e vendem\n📊 Projeção financeira, estrutura e execução\n🗺️ Plano de ação de 30 dias\n\nE muito mais…`
+              },
+              {
+                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}`,
+                instrucao: AVISO_ZOOM
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 2',
+            gatilho: true,
+            horario: 'Assim que a aula ao vivo do Dia 2 começar',
+            blocos: [
+              {
+                texto: `🚨 Estamos ao vivo!\n\nO Dia 2 da Imersão Marca de Autoridade já começou! 💫\n\nBora aproveitar cada minuto desse dia.`,
+                anexos: [{ label: '🖼️ Imagem de "ao vivo" (aguardando arte nova)', pendente: true }]
+              },
+              {
+                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 3: Eventos',
+            gatilho: true,
+            horario: 'Quando a Tamara começar Eventos presenciais e online (previsto ~9h40)',
+            blocos: [
+              {
+                texto: `🔥 Estamos falando sobre EVENTOS ao vivo agora!\n\nJantares, workshops, imersões e eventos online: a Tamara está mostrando como usar cada formato como estratégia comercial para posicionar e vender.\n\nEssa é uma das partes mais práticas da Imersão e você precisa ver isso ao vivo.`
+              },
+              {
+                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 4: Oferta AIM Brand',
+            gatilho: true,
+            horario: 'Na hora da oferta (previsto ~11h15)',
+            blocos: [
+              {
+                texto: `🚨 Estão abertas as inscrições para o AIM Brand!\n\nA jornada completa do posicionamento à escala, com Tamara Damares e Izah Menezes: método, execução, eventos e acompanhamento para construir um negócio de autoridade.`,
+                anexos: [{ label: '🖼️ Imagem da oferta AIM Brand (aguardando)', pendente: true }]
+              },
+              {
+                texto: `📚 São 10 etapas na trilha:\n\n01. Onboarding e alinhamento\n02. Mentalidade e identidade\n03. Posicionamento e marca\n04. Audiência e comunidade\n05. Conteúdo estratégico\n06. Estrutura empresarial\n07. Método e esteira\n08. Eventos presenciais\n09. Eventos online\n10. Projeção financeira e escala\n\nCom aulas ao vivo e gravadas, mapas e ferramentas, acompanhamento estratégico, encontros recorrentes e comunidade exclusiva.`
+              },
+              {
+                texto: `🔥 Só para quem entrar até o final do evento: voucher de R$ 4.000 de desconto!\n\nInvestimento de R$ 16.000, com R$ 4.000 de desconto no voucher.\n\n💳 Entrada de R$ 1.200 + 11x de R$ 1.200`,
+                instrucao: 'Condição fechada no outro chat: preço cheio R$ 16 mil, voucher de R$ 4.000, entrada de R$ 1.200 + 11x de R$ 1.200. Valor no pix não foi definido, então não entrou. Confirmar com a Tamara antes de enviar.'
+              },
+              {
+                texto: `🎁 E ainda tem bônus:\n\n✅ Para todas: Trello do AIM Brand com os mapas\n✅ Análise de posicionamento no Instagram\n📑 10 primeiras: Relatórios estratégicos personalizados\n🧪 10 primeiras: Laboratório de análise de pitch e slide\n🏡 5 primeiras: Imersão no escritório em Florianópolis\n\nOs bônus são entregues por ordem de entrada.`,
+                instrucao: 'Valores de ancoragem dos bônus não foram confirmados, por isso não aparecem.'
+              },
+              {
+                texto: `👉 Bora garantir sua vaga e os bônus?\n\nPreencha a aplicação no link abaixo:\n\n🔗 LINK DA APLICAÇÃO AIM BRAND (aguardando)\n\nVocês nasceram para serem grandes autoridades. 👑`,
+                instrucao: 'O fechamento é por aplicação (QR code). Falta o link da aplicação desta edição.'
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 5: Reforço da oferta',
+            gatilho: true,
+            horario: 'Perto do encerramento, na parte de perguntas (previsto ~11h45)',
+            blocos: [
+              {
+                texto: `⏳ Últimos minutos da condição especial!\n\nO voucher de R$ 4.000 para o AIM Brand vale só até o final da Imersão.\n\nE os bônus vão por ordem de entrada: as vagas da imersão no escritório em Florianópolis, dos relatórios e do laboratório estão acabando.`
+              },
+              {
+                texto: `👉 Faça sua aplicação agora:\n\n🔗 LINK DA APLICAÇÃO AIM BRAND (aguardando)`
+              }
+            ]
+          },
+          {
+            titulo: 'Mensagem 6: Agradecimento final',
+            gatilho: true,
+            horario: 'No encerramento do Dia 2 (despedida)',
+            blocos: [
+              {
+                texto: `Que Imersão incrível essa foi! 🤎✨\n\nForam dois dias de muito conteúdo, muita entrega e muita transformação.\n\nVer cada uma de vocês presentes, participando, anotando, perguntando… isso é o que faz tudo valer a pena.\n\nFicamos muito felizes por ter vivido esse momento com você. Obrigada de coração. 🙏\n\nTamara e Izah`,
+                anexos: [{ label: '🖼️ Imagem de depoimentos (usada no TP11/TP12, trocar se houver uma nova)', url: 'https://drive.google.com/file/d/1seIGcoR0wRnoMK_FIz6X1qEuI6N1i9es/view?usp=drive_link' }]
+              },
+              {
+                texto: `E olha que lindo: as transformações já estão acontecendo. 💛\n\nVeja o que algumas participantes falaram.\n\nAgora é colocar tudo em prática.\n\nVocê não é mais a mesma que entrou aqui ontem. 🚀\n\nO palco está te esperando. 🤎`
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+};
+
+const iconeCopiar = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>`;
+const iconeCheck = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+
+function escapeHtml(str) {
+return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function linkify(html) {
+return html.replace(/(https?:\/\/[^\s<]+)/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+}
+
+function renderBloco(bloco, idx) {
+if (bloco.pendente) {
+return `
+<div class="bloco bloco-pendente">
+<div class="bloco-label">Bloco ${idx + 1}</div>
+<div class="bloco-nota">⏳ ${bloco.nota || 'Conteúdo ainda não cadastrado.'}</div>
+</div>`;
+}
+let textoHtml;
+if (bloco.editavel) {
+const partes = bloco.texto.split(bloco.editavel.token);
+const antes = linkify(escapeHtml(partes[0]));
+const depois = linkify(escapeHtml(partes[1]));
+textoHtml = `${antes}<input type="text" class="campo-editavel" data-token="${encodeURIComponent(bloco.editavel.token)}" value="${bloco.editavel.default}">${depois}`;
+} else {
+textoHtml = linkify(escapeHtml(bloco.texto));
+}
+const anexosHtml = (bloco.anexos || []).map(anexo =>
+anexo.pendente
+? `<span class="anexo anexo-pendente">⏳ ${anexo.label}</span>`
+: `<a class="anexo" href="${anexo.url}" target="_blank" rel="noopener">${anexo.label}</a>`
+).join('');
+const instrucaoHtml = bloco.instrucao ? `<div class="bloco-instrucao">ℹ️ ${bloco.instrucao}</div>` : '';
+return `
+<div class="bloco">
+<button class="btn-copiar" onclick="copiarBloco(this)" aria-label="Copiar bloco" title="Copiar texto">${iconeCopiar}</button>
+<div class="bloco-label">Bloco ${idx + 1}</div>
+<div class="bloco-texto" data-raw="${encodeURIComponent(bloco.texto)}">${textoHtml}</div>
+${anexosHtml ? `<div class="anexos">${anexosHtml}</div>` : ''}
+${instrucaoHtml}
+</div>`;
+}
+
+function renderMensagem(msg) {
+if (msg.placeholder) {
+return `
+<div class="msg-card placeholder">
+<div>
+<span class="msg-titulo">${msg.titulo} · ainda não cadastrada</span>
+${msg.nota ? `<div class="placeholder-nota">${msg.nota}</div>` : ''}
+</div>
+</div>`;
+}
+const blocosHtml = msg.blocos.map(renderBloco).join('');
+return `
+<div class="msg-card">
+<div class="msg-topo">
+<span class="msg-titulo">${msg.titulo}</span>
+${msg.horario ? `<span class="chip">${msg.gatilho ? '🎯' : '🕐'} ${msg.horario}</span>` : ''}
+</div>
+<div class="blocos">${blocosHtml}</div>
+</div>`;
+}
+
+function renderCategoria(cat) {
+if (!cat.mensagens.length) {
+return `<div class="estado-vazio">Nenhuma mensagem cadastrada ainda em <strong>${cat.label}</strong>.</div>`;
+}
+return cat.mensagens.map(renderMensagem).join('');
+}
+
+function montarLancamento(key, lanc) {
+const categoriasNav = lanc.categorias.map((cat, i) =>
+`<button class="aba-cat ${i === 0 ? 'ativa' : ''}" data-cat="${cat.key}" onclick="mostrarCategoria('${key}','${cat.key}',this)">${cat.label}</button>`
+).join('');
+const categoriasPaineis = lanc.categorias.map((cat, i) =>
+`<div class="painel-categoria ${i === 0 ? 'ativo' : ''}" data-cat="${key}-${cat.key}">${renderCategoria(cat)}</div>`
+).join('');
+return `
+<nav class="abas-categoria">${categoriasNav}</nav>
+${categoriasPaineis}`;
+}
+
+function montarPagina() {
+const abasNav = document.getElementById('abasLancamento');
+const paineis = document.getElementById('paineisLancamento');
+const keys = Object.keys(LANCAMENTOS);
+keys.forEach((key, i) => {
+const lanc = LANCAMENTOS[key];
+const aba = document.createElement('button');
+aba.className = 'aba-lanc' + (i === 0 ? ' ativa' : '');
+aba.textContent = lanc.label;
+aba.onclick = () => mostrarLancamento(key, aba);
+abasNav.appendChild(aba);
+
+const painel = document.createElement('div');
+painel.className = 'painel-lancamento' + (i === 0 ? ' ativo' : '');
+painel.dataset.lanc = key;
+painel.innerHTML = montarLancamento(key, lanc);
+paineis.appendChild(painel);
+});
+}
+
+function mostrarLancamento(key, btn) {
+document.querySelectorAll('.aba-lanc').forEach(b => b.classList.remove('ativa'));
+btn.classList.add('ativa');
+document.querySelectorAll('.painel-lancamento').forEach(p => p.classList.toggle('ativo', p.dataset.lanc === key));
+}
+
+function mostrarCategoria(lancKey, catKey, btn) {
+const nav = btn.parentElement;
+nav.querySelectorAll('.aba-cat').forEach(b => b.classList.remove('ativa'));
+btn.classList.add('ativa');
+const container = nav.parentElement;
+container.querySelectorAll('.painel-categoria').forEach(p => {
+p.classList.toggle('ativo', p.dataset.cat === `${lancKey}-${catKey}`);
+});
+}
+
+function feedbackCopiado(el) {
+const original = el.innerHTML;
+el.classList.add('copiado');
+el.innerHTML = iconeCheck;
+setTimeout(() => { el.classList.remove('copiado'); el.innerHTML = original; }, 1500);
+}
+
+function textoAtualDoBloco(bloco) {
+let texto = decodeURIComponent(bloco.querySelector('.bloco-texto').dataset.raw);
+const input = bloco.querySelector('.campo-editavel');
+if (input) {
+const token = decodeURIComponent(input.dataset.token);
+texto = texto.split(token).join(input.value || input.placeholder || '');
+}
+return texto;
+}
+
+function copiarBloco(btn) {
+const bloco = btn.closest('.bloco');
+copiarParaClipboard(textoAtualDoBloco(bloco), btn);
+}
+
+function copiarParaClipboard(texto, btn) {
+if (navigator.clipboard && navigator.clipboard.writeText) {
+navigator.clipboard.writeText(texto).then(() => feedbackCopiado(btn)).catch(() => copiarComFallback(texto, btn));
+} else {
+copiarComFallback(texto, btn);
+}
+}
+
+function copiarComFallback(texto, btn) {
+const area = document.createElement('textarea');
+area.value = texto;
+area.style.position = 'fixed';
+area.style.opacity = '0';
+document.body.appendChild(area);
+area.focus();
+area.select();
+try { document.execCommand('copy'); feedbackCopiado(btn); } catch (e) {}
+document.body.removeChild(area);
+}
+
+montarPagina();
+</script>
+</body>
+</html>
