@@ -279,8 +279,8 @@ const LANCAMENTOS = {
                 instrucao: 'A imagem do TP12 era da Jornada da Autoridade. Enviar junto uma arte nova da Imersão Marca de Autoridade.'
               },
               {
-                texto: `📍 Onde vai rolar?\nA Imersão será pelo Zoom, e o link de acesso será enviado 1 hora antes do início, aqui no grupo de avisos.\n\n🎞️ Vai ter gravação?\nSim! Mas a gravação é uma entrega à parte e não está inclusa no ingresso do evento ao vivo.\n\n⏰ Atenção: a venda da gravação é só HOJE!\n\nQuem garantir a gravação hoje ainda ganha de bônus os slides que serão apresentados no evento, mas essa condição também vale só até hoje.\n\nGaranta a sua agora por R$97,00 👇\n\nhttps://pay.zouti.com.br/checkout?product_offer_id=prod_offer_mcmanegurm4ljk3vlz0564`,
-                instrucao: 'Valor e link da gravação mantidos do TP11/TP12. Confirmar se o checkout e o preço continuam os mesmos para esta edição antes de enviar.'
+                texto: `📍 Onde vai rolar?\nA Imersão será pelo Zoom, e o link de acesso será enviado 1 hora antes do início, aqui no grupo de avisos.\n\n🎞️ Vai ter gravação?\nSim! Mas a gravação é uma entrega à parte e não está inclusa no ingresso do evento ao vivo.\n\n⏰ Atenção: a venda da gravação é só HOJE!\n\nQuem garantir a gravação hoje ainda ganha de bônus os slides que serão apresentados no evento, mas essa condição também vale só até hoje.\n\nGaranta a sua agora por R$97,00 👇\n\nhttps://pay.zouti.com.br/checkout?product_offer_id=prod_offer_3sy9jxu5ce6w5l2l0qgrun`,
+                instrucao: 'Checkout da gravação desta edição (Imersão Marca de Autoridade, gravação 1 ano): R$ 97 à vista ou 6x de R$ 18,13.'
               }
             ]
           },
@@ -579,11 +579,13 @@ textoHtml = `${antes}<input type="text" class="campo-editavel" data-token="${enc
 } else {
 textoHtml = linkify(escapeHtml(bloco.texto));
 }
-const anexosHtml = (bloco.anexos || []).map(anexo =>
-anexo.pendente
-? `<span class="anexo anexo-pendente">⏳ ${anexo.label}</span>`
-: `<a class="anexo" href="${anexo.url}" target="_blank" rel="noopener">${anexo.label}</a>`
-).join('');
+const anexosHtml = (bloco.anexos || []).map(anexo => {
+if (anexo.pendente) return `<span class="anexo anexo-pendente">⏳ ${anexo.label}</span>`;
+const m = (anexo.url || '').match(/drive\.google\.com\/file\/d\/([\w-]+)/);
+const baixar = anexo.download || (m ? `https://drive.google.com/uc?export=download&id=${m[1]}` : '');
+return `<a class="anexo" href="${anexo.url}" target="_blank" rel="noopener">${anexo.label}</a>`
++ (baixar ? `<a class="anexo anexo-baixar" href="${baixar}" download>⬇️ Baixar imagem</a>` : '');
+}).join('');
 const instrucaoHtml = bloco.instrucao ? `<div class="bloco-instrucao">ℹ️ ${bloco.instrucao}</div>` : '';
 return `
 <div class="bloco">
