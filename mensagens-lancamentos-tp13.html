@@ -262,6 +262,35 @@ stroke-linejoin="round" stroke-linecap="round" aria-label="BM Mídias">
 const ZOOM_DIA1 = 'https://us06web.zoom.us/j/81018576028?pwd=7ibdEr7HMpMM1ZvCUDk05ATM8pTbBG.1\n\nID da reunião: 810 1857 6028\nSenha: 389124';
 const ZOOM_DIA2 = 'https://us06web.zoom.us/j/82570664868?pwd=Ox0Wo2DoA5s5750bOTivdE5iKQlQMu.1\n\nID da reunião: 825 7066 4868\nSenha: 078009';
 const AVISO_ZOOM = 'Cada dia tem um link de Zoom diferente. Sábado usa o da sala "Imersão dia 1" e domingo o da sala "Imersão dia 2", já colocados em cada aba.';
+const GRUPO_PRE_VENDA = 'https://chat.whatsapp.com/GCKRKYL8ZdLL8BY1xpDwzo?mode=gi_t';
+const LINK_AIM_BRAND = 'https://pay.zouti.com.br/checkout?poi=prod_offer_taj20pbdvzkvs17qvhfasi';
+const OFERTA_INICIO = [
+  {
+    texto: `🚨 Estão abertas as inscrições para o AIM Brand!\n\nA jornada completa do posicionamento à escala, com Tamara Damares e Izah Menezes: método, execução, eventos e acompanhamento para construir um negócio de autoridade.`,
+    anexos: [{ label: '🖼️ Imagem da oferta AIM Brand (aguardando)', pendente: true }]
+  },
+  {
+    texto: `📚 São 10 etapas na trilha:\n\n01. Onboarding e alinhamento\n02. Mentalidade e identidade\n03. Posicionamento e marca\n04. Audiência e comunidade\n05. Conteúdo estratégico\n06. Estrutura empresarial\n07. Método e esteira\n08. Eventos presenciais\n09. Eventos online\n10. Projeção financeira e escala\n\nCom aulas ao vivo e gravadas, mapas e ferramentas, acompanhamento estratégico, encontros recorrentes, comunidade exclusiva e eventos presenciais e online.`
+  },
+  {
+    texto: `🔥 Só para quem entrar até o final do evento: voucher de R$ 4.000 de desconto!\n\nInvestimento de R$ 16.000, com R$ 4.000 de desconto no voucher.\n\n💳 Entrada de R$ 1.200 + 11x de R$ 1.200`,
+    instrucao: 'Mesma condição do slide (págs. 90 a 99). A entrada de R$ 1.200 é paga no checkout do link (cartão ou pix).'
+  },
+  {
+    texto: `🎁 E ainda tem bônus:\n\n✅ Para todas: Trello do AIM Brand com os mapas\n✅ Análise de posicionamento no Instagram\n📑 10 primeiras: Relatórios estratégicos personalizados\n🧪 10 primeiras: Laboratório de análise de pitch e slide\n🏡 5 primeiras: Imersão no escritório em Florianópolis\n\nOs bônus são entregues por ordem de entrada.`,
+    instrucao: 'Bônus do slide. Os valores de cada bônus aparecem no slide, mas ficaram fora da mensagem.'
+  }
+];
+const OFERTA_EXCLUSIVOS = {
+  texto: `💎 E só aqui no grupo de pré-venda, você ainda leva 3 bônus exclusivos:\n\n🎤 Palestra em um evento internacional: você vai ter palco no nosso evento internacional\n👑 2 meses de acesso ao AIM Club + 3 estrelas extras\n📋 Os Trellos completos de Eventos, Mentorias e Secretaria\n\nSão três Trellos completos que nem quem compra só as mentorias tem acesso.`,
+  instrucao: 'Estes 3 bônus são SÓ do grupo de pré-venda. Não enviar no grupo geral.'
+};
+const OFERTA_FECHAMENTO = {
+  texto: `👉 Bora garantir sua vaga e os bônus?\n\nClique no link abaixo e garanta agora com a entrada de R$ 1.200:\n\n${LINK_AIM_BRAND}\n\nVocês nasceram para serem grandes autoridades. 👑`,
+  instrucao: 'Link do checkout do AIM Brand (o mesmo do QR Code "Faça sua aplicação" do slide).'
+};
+const OFERTA_PRE_VENDA = [...OFERTA_INICIO, OFERTA_EXCLUSIVOS, OFERTA_FECHAMENTO];
+const OFERTA_GERAL = [...OFERTA_INICIO, OFERTA_FECHAMENTO];
 
 const LANCAMENTOS = {
   tp13: {
@@ -345,104 +374,117 @@ const LANCAMENTOS = {
             ]
           },
           {
-            titulo: 'Mensagem 4: Mentalidade',
+            titulo: 'Mensagem 4: Mentalidade e dinheiro',
             gatilho: true,
-            horario: 'Quando a Izah começar Mentalidade e identidade (previsto ~9h30)',
+            horario: 'Quando a Izah começar Mentalidade e dinheiro',
             blocos: [
               {
-                texto: `Ei, você tá aí? 👀\n\nAgora é a vez da Izah, falando sobre Mentalidade, identidade e quebra de ciclos.\n\nAntes de qualquer estratégia, vem a forma como você se enxerga como empresária. É isso que destrava o resto.`
+                texto: `Ei, você tá aí? 👀\n\nAgora é a vez da Izah, falando sobre Mentalidade e dinheiro.\n\nAntes de qualquer estratégia, vem a forma como você enxerga o seu valor e o seu dinheiro. É isso que destrava o resto.`
               },
-              {
-                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
-              }
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}` }
             ]
           },
           {
-            titulo: 'Mensagem 5: Posicionamento',
+            titulo: 'Mensagem 5: Posicionamento e Brand',
             gatilho: true,
-            horario: 'Quando a Tamara começar Posicionamento premium (previsto ~10h30)',
+            horario: 'Quando a Tamara começar Posicionamento e Brand',
             blocos: [
               {
-                texto: `A Imersão tá pegando fogo 🔥\n\nAgora a Tamara está falando sobre Posicionamento premium e diferenciação: como sair do "mais uma" e virar a referência que as pessoas escolhem e indicam.`
+                texto: `A Imersão tá pegando fogo 🔥\n\nAgora a Tamara está falando sobre Posicionamento e Brand: como sair do "mais uma" e virar a referência que as pessoas lembram, escolhem e indicam.`
               },
-              {
-                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
-              }
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}` }
             ]
           },
           {
-            titulo: 'Mensagem 6: Pausa do almoço',
+            titulo: 'Mensagem 6: Método e esteira de produtos',
             gatilho: true,
-            horario: 'Quando avisarem a pausa do almoço (previsto ~12h)',
+            horario: 'Quando a Tamara começar Esteira de produtos',
             blocos: [
               {
-                texto: `🍽️ Hora da pausa!\n\nVamos dar uma paradinha pro almoço e voltamos às {{HORARIO}} com mais conteúdo poderoso.\n\nAproveita pra descansar, se hidratar e voltar cheia de energia, porque a tarde promete! 💪\n\n🚀 O palco te espera na volta.`,
+                texto: `🧩 Método e esteira de produtos: AO VIVO AGORA!\n\nA Tamara está mostrando como transformar o que você já sabe em um método com a sua cara, e como organizar seus produtos em uma esteira que faz sentido para a sua cliente.`
+              },
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}` }
+            ]
+          },
+          {
+            titulo: 'Mensagem 7: Intervalo',
+            gatilho: true,
+            horario: 'Quando avisarem o intervalo',
+            blocos: [
+              {
+                texto: `🍽️ Hora do intervalo!\n\nVamos dar uma paradinha e voltamos às {{HORARIO}} com mais conteúdo poderoso.\n\nAproveita pra descansar, se hidratar e voltar cheia de energia, porque a tarde promete! 💪\n\n🚀 O palco te espera na volta.`,
                 editavel: { token: '{{HORARIO}}', default: '13h00' },
-                instrucao: 'Preencha com o horário de volta que falarem ao vivo (ex.: "13h00" ou "daqui 40 minutos") e envie assim que avisarem a pausa.'
+                instrucao: 'Preencha com o horário de volta que falarem ao vivo (ex.: "13h00" ou "daqui 40 minutos") e envie assim que avisarem o intervalo.'
               }
             ]
           },
           {
-            titulo: 'Mensagem 7: Volta do almoço',
+            titulo: 'Mensagem 8: Volta com Eventos e formatos',
             gatilho: true,
-            horario: 'Quando voltarem do almoço (previsto ~13h)',
+            horario: 'Na volta do intervalo, quando a Tamara começar Formatos de eventos',
             blocos: [
               {
-                texto: `Voltamos! 🔥\n\nNa parte da tarde, a Izah abre com Construção de audiência e comunidade: como atrair as pessoas certas e construir uma audiência que confia em você e compra de você.\n\n🚀 Bora continuar com tudo!`
+                texto: `Voltamos! 🔥\n\nE agora é EVENTOS: a Tamara está mostrando os formatos de evento presencial e online, de workshop e jantar estratégico até imersão pocket e congresso, e por que nada posiciona mais rápido do que um evento.\n\nEssa é uma das partes mais práticas da Imersão. Corre pra ver ao vivo!`
               },
-              {
-                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
-              }
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}` }
             ]
           },
           {
-            titulo: 'Mensagem 8: Conteúdo',
+            titulo: 'Mensagem 9: Grupo de pré-venda',
             gatilho: true,
-            horario: 'Quando a Izah começar Narrativas e conteúdo (previsto ~14h)',
+            horario: 'Quando aparecer o slide "Grupo de pré-venda" (no slide, logo depois de Formatos de eventos)',
             blocos: [
               {
-                texto: `🎙️ Narrativas, conteúdo e comunicação: AO VIVO AGORA!\n\nEssa é a parte que separa quem só aparece de quem realmente impacta.\n\nA Izah está mostrando como criar conteúdo que posiciona, conecta e gera desejo, sem ficar refém de trends. 🔥`
+                texto: `🚨 Acabamos de abrir o grupo de pré-venda do AIM Brand!`
               },
               {
-                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
+                texto: `🎁 Quem estiver no grupo de pré-venda recebe as informações do AIM Brand antes de todo mundo e ainda ganha 3 bônus exclusivos, que não vão ser oferecidos fora do grupo.\n\nQuer sair na frente? Entra agora 👇\n\n${GRUPO_PRE_VENDA}`,
+                instrucao: 'Link do grupo de pré-venda do slide (o mesmo do QR Code).'
               }
             ]
           },
           {
-            titulo: 'Mensagem 9: Método próprio',
+            titulo: 'Mensagem 10: Mapa prático',
             gatilho: true,
-            horario: 'Quando a Tamara começar Método próprio e esteira (previsto ~15h)',
+            horario: 'Quando a Tamara começar o Mapa prático',
             blocos: [
               {
-                texto: `🧩 Método próprio e esteira de produtos: AO VIVO AGORA!\n\nA Tamara está mostrando como transformar o que você já sabe em um método com a sua cara, e como organizar seus produtos em uma esteira que faz sentido para a sua cliente.`
+                texto: `🗺️ Mapa prático: AO VIVO AGORA!\n\nA Tamara está mostrando, na prática, como tirar o evento do papel: jantar, sala secreta e experiências, do planejamento à venda de ingressos, patrocínio e estratégias para lotar a sala.\n\nPega o caderno, porque essa parte é ouro. ✍️`
               },
-              {
-                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
-              }
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}` }
             ]
           },
           {
-            titulo: 'Mensagem 10: Grupo de pré-venda',
+            titulo: 'Mensagem 11: Construção de audiência',
             gatilho: true,
-            horario: 'Quando aparecer o slide com o QR Code do grupo de pré-venda',
+            horario: 'Quando a Izah começar Construção de audiência',
             blocos: [
               {
-                texto: `🚨 Amanhã tem uma condição especial para o AIM Brand!`
+                texto: `🎙️ Construção de audiência: AO VIVO AGORA!\n\nA Izah está mostrando como atrair as pessoas certas e construir uma audiência que confia em você e compra de você.`
               },
-              {
-                texto: `🎁 Quem estiver na pré-venda vai receber um voucher de R$ 4.000 de desconto, e ainda tem bônus por ordem de entrada.\n\nQuer sair na frente? Entra agora no grupo de pré-venda 👇\n\n🔗 LINK DO GRUPO DE PRÉ-VENDA (aguardando)`,
-                instrucao: 'Falta o link do grupo de pré-venda desta edição (o do TP12 era de outro lançamento). Voucher de R$ 4.000 conforme a oferta fechada para o AIM Brand.'
-              }
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}` }
             ]
           },
           {
-            titulo: 'Mensagem 11: Encerramento do Dia 1',
+            titulo: 'Mensagem 12: Pitch AIM Brand (GRUPO DE PRÉ-VENDA)',
+            gatilho: true,
+            horario: 'Na hora do pitch (Apresentação AIM Brand). Enviar PRIMEIRO no grupo de pré-venda',
+            blocos: OFERTA_PRE_VENDA
+          },
+          {
+            titulo: 'Mensagem 13: Pitch AIM Brand (grupo geral)',
+            gatilho: true,
+            horario: 'Logo depois de enviar a Mensagem 12 no grupo de pré-venda',
+            blocos: OFERTA_GERAL
+          },
+          {
+            titulo: 'Mensagem 14: Encerramento do Dia 1',
             gatilho: true,
             horario: 'No encerramento do Dia 1 (28/11)',
             blocos: [
               {
-                texto: `✅ Encerramos o Dia 1! 🎉\n\nVimos muita coisa hoje, mas calma, ainda não acabou! 👀\n\nAmanhã é o dia de transformar tudo isso em negócio:\n\n🎯 Como transformar conhecimento em ofertas premium\n🎤 Eventos presenciais e online como estratégia comercial\n📊 Projeção financeira, estrutura e execução\n🗺️ Seu plano de ação para os próximos 30 dias\n\n⏰ Amanhã, às 9h00, estaremos ao vivo. O link será enviado aqui no grupo.`,
-                anexos: [{ label: '🖼️ Imagem com depoimentos do Dia 1 (montar com os prints de hoje)', pendente: true }]
+                texto: `✅ Encerramos o Dia 1! 🎉\n\nVimos muita coisa hoje, mas calma, ainda não acabou! 👀\n\nAmanhã tem:\n\n🧠 Rivalidade e medo, com a Izah\n📖 Marcos da minha vida, com a Tamara\n🎤 Comunicação e oratória\n💼 Pitch implacável: como vender no palco e nas reuniões\n✍️ Dinâmica de conteúdo, com a Izah\n\n⏰ Amanhã, às 9h00, estaremos ao vivo. O link será enviado aqui no grupo.`,
+                anexos: [{ label: '🖼️ Imagem "Encerramos o primeiro dia" (aguardando arte)', pendente: true }]
               }
             ]
           }
@@ -457,10 +499,10 @@ const LANCAMENTOS = {
             horario: 'Envio: domingo, 29/11 às 08:30',
             blocos: [
               {
-                texto: `Bom diaaa! ☀️💛\n\nPreparada para o segundo dia da Imersão Marca de Autoridade?\n\nOntem foi intenso, eu sei! 😅 Mas hoje é o dia de conectar tudo o que você aprendeu e transformar em negócio.`
+                texto: `Bom diaaa! ☀️💛\n\nPreparada para o segundo dia da Imersão Marca de Autoridade?\n\nOntem foi intenso, eu sei! 😅 Mas hoje tem muito mais.`
               },
               {
-                texto: `Hoje a gente vai falar sobre:\n\n🎯 Ofertas premium a partir do seu conhecimento\n🎤 Eventos presenciais e online que posicionam e vendem\n📊 Projeção financeira, estrutura e execução\n🗺️ Plano de ação de 30 dias\n\nE muito mais…`
+                texto: `Hoje a gente vai falar sobre:\n\n🧠 Rivalidade e medo, com a Izah\n📖 Marcos da minha vida, com a Tamara\n🎤 Comunicação e oratória\n💼 Pitch implacável: como vender no palco e nas reuniões\n✍️ Dinâmica de conteúdo, com a Izah\n\nE muito mais…`
               },
               {
                 texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}`,
@@ -471,71 +513,95 @@ const LANCAMENTOS = {
           {
             titulo: 'Mensagem 2',
             gatilho: true,
-            horario: 'Assim que a aula ao vivo do Dia 2 começar',
+            horario: 'Assim que a aula ao vivo do Dia 2 começar (9h)',
             blocos: [
               {
                 texto: `🚨 Estamos ao vivo!\n\nO Dia 2 da Imersão Marca de Autoridade já começou! 💫\n\nBora aproveitar cada minuto desse dia.`,
                 anexos: [{ label: '🖼️ Ver imagem enviada junto (Estamos ao vivo)', url: 'img/tp13-estamos-ao-vivo.jpg', download: 'img/tp13-estamos-ao-vivo.jpg' }]
               },
-              {
-                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}`
-              }
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}` }
             ]
           },
           {
-            titulo: 'Mensagem 3: Eventos',
+            titulo: 'Mensagem 3: Rivalidade e medo',
             gatilho: true,
-            horario: 'Quando a Tamara começar Eventos presenciais e online (previsto ~9h40)',
+            horario: 'Quando a Izah começar Rivalidade e medo',
             blocos: [
               {
-                texto: `🔥 Estamos falando sobre EVENTOS ao vivo agora!\n\nJantares, workshops, imersões e eventos online: a Tamara está mostrando como usar cada formato como estratégia comercial para posicionar e vender.\n\nEssa é uma das partes mais práticas da Imersão e você precisa ver isso ao vivo.`
+                texto: `Ei, você tá aí? 👀\n\nA Izah está falando agora sobre rivalidade e medo: o que trava tantas mulheres na hora de aparecer, se posicionar e ocupar o seu espaço.\n\nEssa conversa é daquelas que mudam a chave.`
               },
-              {
-                texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}`
-              }
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}` }
             ]
           },
           {
-            titulo: 'Mensagem 4: Oferta AIM Brand',
+            titulo: 'Mensagem 4: Marcos da minha vida',
             gatilho: true,
-            horario: 'Na hora da oferta (previsto ~11h15)',
+            horario: 'Quando a Tamara começar os 7 marcos da vida dela',
             blocos: [
               {
-                texto: `🚨 Estão abertas as inscrições para o AIM Brand!\n\nA jornada completa do posicionamento à escala, com Tamara Damares e Izah Menezes: método, execução, eventos e acompanhamento para construir um negócio de autoridade.`,
-                anexos: [{ label: '🖼️ Imagem da oferta AIM Brand (aguardando)', pendente: true }]
+                texto: `📖 Agora é um momento muito especial.\n\nA Tamara está contando os 7 marcos que ela teve que superar para prosperar, até chegar aos palcos e aos resultados de hoje.\n\nVocê não vai querer perder essa história. 🤎`
               },
-              {
-                texto: `📚 São 10 etapas na trilha:\n\n01. Onboarding e alinhamento\n02. Mentalidade e identidade\n03. Posicionamento e marca\n04. Audiência e comunidade\n05. Conteúdo estratégico\n06. Estrutura empresarial\n07. Método e esteira\n08. Eventos presenciais\n09. Eventos online\n10. Projeção financeira e escala\n\nCom aulas ao vivo e gravadas, mapas e ferramentas, acompanhamento estratégico, encontros recorrentes e comunidade exclusiva.`
-              },
-              {
-                texto: `🔥 Só para quem entrar até o final do evento: voucher de R$ 4.000 de desconto!\n\nInvestimento de R$ 16.000, com R$ 4.000 de desconto no voucher.\n\n💳 Entrada de R$ 1.200 + 11x de R$ 1.200`,
-                instrucao: 'Condição fechada no outro chat: preço cheio R$ 16 mil, voucher de R$ 4.000, entrada de R$ 1.200 + 11x de R$ 1.200. Valor no pix não foi definido, então não entrou. Confirmar com a Tamara antes de enviar.'
-              },
-              {
-                texto: `🎁 E ainda tem bônus:\n\n✅ Para todas: Trello do AIM Brand com os mapas\n✅ Análise de posicionamento no Instagram\n📑 10 primeiras: Relatórios estratégicos personalizados\n🧪 10 primeiras: Laboratório de análise de pitch e slide\n🏡 5 primeiras: Imersão no escritório em Florianópolis\n\nOs bônus são entregues por ordem de entrada.`,
-                instrucao: 'Valores de ancoragem dos bônus não foram confirmados, por isso não aparecem.'
-              },
-              {
-                texto: `👉 Bora garantir sua vaga e os bônus?\n\nPreencha a aplicação no link abaixo:\n\n🔗 LINK DA APLICAÇÃO AIM BRAND (aguardando)\n\nVocês nasceram para serem grandes autoridades. 👑`,
-                instrucao: 'O fechamento é por aplicação (QR code). Falta o link da aplicação desta edição.'
-              }
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}` }
             ]
           },
           {
-            titulo: 'Mensagem 5: Reforço da oferta',
+            titulo: 'Mensagem 5: Pitch AIM Brand (GRUPO DE PRÉ-VENDA)',
             gatilho: true,
-            horario: 'Perto do encerramento, na parte de perguntas (previsto ~11h45)',
+            horario: 'Na hora do pitch de novo (Tamara e Izah). Enviar PRIMEIRO no grupo de pré-venda',
+            blocos: OFERTA_PRE_VENDA
+          },
+          {
+            titulo: 'Mensagem 6: Pitch AIM Brand (grupo geral)',
+            gatilho: true,
+            horario: 'Logo depois de enviar a Mensagem 5 no grupo de pré-venda',
+            blocos: OFERTA_GERAL
+          },
+          {
+            titulo: 'Mensagem 7: Comunicação e oratória',
+            gatilho: true,
+            horario: 'Quando a Tamara começar Oratória e comunicação',
+            blocos: [
+              {
+                texto: `🎤 Comunicação e oratória: AO VIVO AGORA!\n\nSua voz é o veículo da sua autoridade. A Tamara está mostrando os 4 pilares da oratória (voz, postura, expressão e narrativa) e os vícios de linguagem que minam a sua autoridade.`
+              },
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}` }
+            ]
+          },
+          {
+            titulo: 'Mensagem 8: Pitch implacável',
+            gatilho: true,
+            horario: 'Quando a Tamara começar Pitch implacável',
+            blocos: [
+              {
+                texto: `💼 Pitch implacável: AO VIVO AGORA!\n\nComo vender no palco e nas reuniões: os 5 passos do pitch, storytelling, ancoragem e quebra de objeções.\n\nPitch não é improviso. É estratégia. Corre pra ver!`
+              },
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}` }
+            ]
+          },
+          {
+            titulo: 'Mensagem 9: Dinâmica de conteúdo',
+            gatilho: true,
+            horario: 'Quando a Izah começar a Dinâmica de conteúdo',
+            blocos: [
+              {
+                texto: `✍️ Dinâmica de conteúdo com a Izah: AO VIVO AGORA!\n\nHora de colocar a mão na massa e sair daqui com conteúdo pronto para posicionar a sua marca.`
+              },
+              { texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}` }
+            ]
+          },
+          {
+            titulo: 'Mensagem 10: Últimos minutos da condição',
+            gatilho: true,
+            horario: 'Perto do encerramento',
             blocos: [
               {
                 texto: `⏳ Últimos minutos da condição especial!\n\nO voucher de R$ 4.000 para o AIM Brand vale só até o final da Imersão.\n\nE os bônus vão por ordem de entrada: as vagas da imersão no escritório em Florianópolis, dos relatórios e do laboratório estão acabando.`
               },
-              {
-                texto: `👉 Faça sua aplicação agora:\n\n🔗 LINK DA APLICAÇÃO AIM BRAND (aguardando)`
-              }
+              { texto: `👉 Garanta sua vaga agora:\n\n${LINK_AIM_BRAND}` }
             ]
           },
           {
-            titulo: 'Mensagem 6: Agradecimento final',
+            titulo: 'Mensagem 11: Agradecimento final',
             gatilho: true,
             horario: 'No encerramento do Dia 2 (despedida)',
             blocos: [
