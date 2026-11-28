@@ -97,6 +97,8 @@ background: var(--bg-soft); border-radius: 10px; padding: 9px 18px;
 font-size: 13px; font-weight: 500; transition: all .15s;
 }
 .aba-cat:hover { color: var(--ink); border-color: var(--roxo-light); }
+.aba-cat.encerrada { opacity: .45; filter: grayscale(1); }
+.aba-cat.encerrada.ativa { opacity: .7; }
 .aba-cat.ativa { background: var(--roxo-xlight); color: var(--roxo-dark); border-color: var(--roxo-light); font-weight: 600; }
 
 .painel-lancamento { display: none; }
@@ -267,7 +269,8 @@ const LANCAMENTOS = {
     categorias: [
       {
         key: 'onboard',
-        label: 'Onboard (sexta, 27/11)',
+        encerrada: true,
+        label: 'Onboard (sexta, 27/11) · enviado',
         mensagens: [
           {
             titulo: 'Mensagem 1',
@@ -322,7 +325,7 @@ const LANCAMENTOS = {
             blocos: [
               {
                 texto: `🚨 Começouuu!\n\nA Imersão Marca de Autoridade já está ao vivo! 💫\n\nA Tamara e a Izah estão abrindo o evento falando sobre a nova empresária de autoridade: quem ela é, como pensa e por que o mercado valoriza quem constrói uma marca forte.`,
-                anexos: [{ label: '🖼️ Imagem de "começou" (aguardando arte nova)', pendente: true }]
+                anexos: [{ label: '🖼️ Ver imagem enviada junto (Estamos ao vivo)', url: 'img/tp13-estamos-ao-vivo.jpg', download: 'img/tp13-estamos-ao-vivo.jpg' }]
               },
               {
                 texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA1}`
@@ -472,7 +475,7 @@ const LANCAMENTOS = {
             blocos: [
               {
                 texto: `🚨 Estamos ao vivo!\n\nO Dia 2 da Imersão Marca de Autoridade já começou! 💫\n\nBora aproveitar cada minuto desse dia.`,
-                anexos: [{ label: '🖼️ Imagem de "ao vivo" (aguardando arte nova)', pendente: true }]
+                anexos: [{ label: '🖼️ Ver imagem enviada junto (Estamos ao vivo)', url: 'img/tp13-estamos-ao-vivo.jpg', download: 'img/tp13-estamos-ao-vivo.jpg' }]
               },
               {
                 texto: `Clique no link abaixo para acessar a aula ao vivo no Zoom 👇\n\n${ZOOM_DIA2}`
@@ -626,11 +629,12 @@ return cat.mensagens.map(renderMensagem).join('');
 }
 
 function montarLancamento(key, lanc) {
+const inicial = Math.max(0, lanc.categorias.findIndex(c => !c.encerrada));
 const categoriasNav = lanc.categorias.map((cat, i) =>
-`<button class="aba-cat ${i === 0 ? 'ativa' : ''}" data-cat="${cat.key}" onclick="mostrarCategoria('${key}','${cat.key}',this)">${cat.label}</button>`
+`<button class="aba-cat ${cat.encerrada ? 'encerrada' : ''} ${i === inicial ? 'ativa' : ''}" data-cat="${cat.key}" onclick="mostrarCategoria('${key}','${cat.key}',this)">${cat.label}</button>`
 ).join('');
 const categoriasPaineis = lanc.categorias.map((cat, i) =>
-`<div class="painel-categoria ${i === 0 ? 'ativo' : ''}" data-cat="${key}-${cat.key}">${renderCategoria(cat)}</div>`
+`<div class="painel-categoria ${i === inicial ? 'ativo' : ''}" data-cat="${key}-${cat.key}">${renderCategoria(cat)}</div>`
 ).join('');
 return `
 <nav class="abas-categoria">${categoriasNav}</nav>
